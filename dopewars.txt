@@ -1,0 +1,62 @@
+notes for "dope wars" game:
+
+Overview:
+You are a drug dealer. Your goal is to buy and sell drugs and make money without being caught.
+You have 30 days to fly around the world making your purchases and selling your product. 
+
+This is a one player game, as the player, your goal is to beat your previous score. 
+You lose only if you get caught, or if you owe any money. 
+
+Simple economy. Drug value is, to some degree, determined randomly by the day (1..30).
+
+Objects:
+	The player (you)
+	drugs
+	weapons
+	bags
+	federal agents - DEA
+	cities
+	bank
+	
+Game play:
+There are 6 cities located around the world.
+	1. Las Vegas
+	2. New York
+	3. Miami
+	4. Amsterdam
+	5. Frankfurt
+	6. El-Jazier
+	
+The city you are in dictates what drugs are available.
+
+There are 10 types of drugs
+	1. weed
+	2. heroine
+	3. cocaine
+	4. ecstasy
+	5. shrooms
+	6. ruffy
+	7. acid
+	8. crack
+	9. oxycotin
+	10. crystal meth
+	
+There are 3 weapons
+	1. Brass knuckles
+	2. Knife
+	3. Gun
+	
+There are random federal agents
+	1. they carry weapons
+	2. they can arrest you
+
+There is 1 bank
+	1. you can borrow
+	2. you can save
+	3. gains interest at 1.5% a day
+
+There are 3 bags
+	1. small back pack - holds 50 drugs and 1 weapon
+	2. briefcase - holds 100 drugs and 1 weapon
+	3. large case - holds 500 drugs and 2 weapons
+
