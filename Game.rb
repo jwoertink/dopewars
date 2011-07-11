@@ -1,7 +1,3 @@
-require 'player'
-require 'drug'
-require 'bank'
-
 class Game
   
   LOCATIONS = ["Las Vegas", "New York", "Miami", "Amsterdam", "Frankfurt", "El-Jazier"]
@@ -42,6 +38,10 @@ class Game
   
   def self.game_over
     exit
+  end
+  
+  def start!
+    puts "starting game"
   end
   
 end

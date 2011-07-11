@@ -1,5 +1,3 @@
-require 'game'
-
 class Bank
   
   attr_accessor :loan_amount, :savings_account

@@ -1,0 +1,24 @@
+= Dopewars v.1.1
+
+This is a Ruby port of the original dopewars/drugwars game.
+
+== Overview
+
+You are a drug dealer. Your goal is to buy and sell drugs and make money without being caught.
+You have 30 days to fly around the world making your purchases and selling your product. 
+
+This is a one player game. As the player, your goal is to beat your previous score. 
+You lose only if you get caught, or if you owe any money at the end of the game.
+
+Simple economy. Drug value is, to some degree, determined randomly by the day.
+
+== How to play
+
+  $ ruby dopewars.rb
+  
+You will be walked through during gameplay. Type "S" to start, or "Q" to quit.
+
+
+== Installing
+
+  Clone the repo, or just copy down these files from Github

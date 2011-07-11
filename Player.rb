@@ -1,5 +1,3 @@
-require 'game'
-
 class Player
   attr_accessor :name, :drugs, :funds, :current_location, :days_remaining, :bank_account
   

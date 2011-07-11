@@ -1,5 +1,3 @@
-require 'game'
-
 class Drug
   
   TYPES = ["weed", "ecstacy", "shrooms", "oxycotin", "acid", "ruffy", "crack", "cocaine", "heroin", "crystal meth"]

@@ -1,13 +1,3 @@
-notes for "dope wars" game:
-
-Overview:
-You are a drug dealer. Your goal is to buy and sell drugs and make money without being caught.
-You have 30 days to fly around the world making your purchases and selling your product. 
-
-This is a one player game, as the player, your goal is to beat your previous score. 
-You lose only if you get caught, or if you owe any money. 
-
-Simple economy. Drug value is, to some degree, determined randomly by the day (1..30).
 
 Objects:
 	The player (you)
@@ -35,7 +25,7 @@ There are 10 types of drugs
 	3. cocaine
 	4. ecstasy
 	5. shrooms
-	6. ruffy
+	6. ruffies
 	7. acid
 	8. crack
 	9. oxycotin
@@ -59,4 +49,3 @@ There are 3 bags
 	1. small back pack - holds 50 drugs and 1 weapon
 	2. briefcase - holds 100 drugs and 1 weapon
 	3. large case - holds 500 drugs and 2 weapons
-
