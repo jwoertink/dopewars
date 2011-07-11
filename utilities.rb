@@ -14,4 +14,8 @@ MSG
     sleep wait_time
   end
   
+  def game_defaults
+    {:days => 30, :starting_location => Game::LOCATIONS.sort_by { rand }.first}
+  end
+  
 end
