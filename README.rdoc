@@ -23,7 +23,11 @@ Options are normally numbers 1 through 5 or so.
 
 == Installing
 
-  Clone the repo, or just copy down these files from Github
+  $ git clone git@github.com:jwoertink/dopewars.git
+  $ cd dopewars
+  $ bundle
+  
+* Requires Ruby 1.9+ and Rubygems 1.5+
   
 == Current Issues
   
