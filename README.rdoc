@@ -7,7 +7,8 @@ This is a Ruby port of the original dopewars/drugwars game.
 You are a drug dealer. Your goal is to buy and sell drugs and make money without being caught.
 You have 30 days to fly around the world making your purchases and selling your product. 
 
-This is a one player game. As the player, your goal is to beat your previous score. 
+This is a single player game. As the player, your goal is to beat your previous score.
+Your score is the total amount you're worth at the end of the game.
 You lose only if you get caught, or if you owe any money at the end of the game.
 
 Simple economy. Drug value is, to some degree, determined randomly by the day.
@@ -17,8 +18,26 @@ Simple economy. Drug value is, to some degree, determined randomly by the day.
   $ ruby dopewars.rb
   
 You will be walked through during gameplay. Type "S" to start, or "Q" to quit.
+Options are normally numbers 1 through 5 or so.
 
 
 == Installing
 
   Clone the repo, or just copy down these files from Github
+  
+== Current Issues
+  
+* Current Location is updated before flying away
+* All drugs are always available
+* No way to pay back loans in the bank
+* No way to pull money from savings
+
+== Upgrades
+
+* Allow player to use drugs as "buffs" when fighting
+* Allow player to train to gain speed, accuracy, evasion
+* Limit the amount of drugs that can be carried per bag size
+* Allow purchasing of weapons, and bags (maybe other items)
+* Fluctuating interest rates depending on which city you start in
+* Fight more than 1 agent at a time
+* Large bonus for killing an agent

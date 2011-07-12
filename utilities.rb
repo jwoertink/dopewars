@@ -11,12 +11,12 @@ MSG
   
   def echo(message, colour = :white, wait_time = 2)
     const = ::HighLine.const_get(colour.to_s.upcase)
-    say("<%= color('#{message}', '#{const}') %>")
+    say(%{<%= color("#{message}", "#{const}") %>})
     sleep wait_time
   end
   
   def game_defaults
-    {playable: true, days: 30, current_day: 1, starting_location: Game::LOCATIONS.sort_by { rand }.first}
+    {playable: true, days: 30, current_day: 0, current_location: Game::LOCATIONS.sort_by { rand }.first}
   end
   
   def game_text(key, vars = {})

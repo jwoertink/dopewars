@@ -1,13 +1,3 @@
-
-Objects:
-	The player (you)
-	drugs
-	weapons
-	bags
-	federal agents - DEA
-	cities
-	bank
-	
 Game play:
 There are 6 cities located around the world.
 	1. Las Vegas

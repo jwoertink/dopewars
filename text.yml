@@ -2,10 +2,7 @@ game:
   greeting: Greetings young dealer. What shall I call you?
   welcome: "Nice to meet you, %{name}. Here is $%{amount}.00 and some %{drug} to get you started."
   dealer_introduction: 
-    "Now that you have that, there is one more thing you will need.\n
-    Here is a plane ticket, and boarding pass good for 30 days.\n
-    This will allow you to travel to one of 6 specific cities\n
-    You will also need this bag to carry stuff in."
+    "Now that you have that, there is one more thing you will need.\nHere is a plane ticket, and boarding pass good for 30 days.\nThis will allow you to travel to one of 6 specific cities\nYou will also need this bag to carry stuff in."
   main_menu: 
     "What would you like to do?\n
     1. Buy drugs\n
@@ -14,3 +11,19 @@ game:
     4. Go to the bank.\n
     5. Check stats."
   bad_selection: "You must choose a menu option"  
+  check_stats_menu: 
+    "**********************\n******* STATS ********\n**********************"
+  bank_menu: 
+    "***********************\n******* BANK **********\n***********************\nWelcome to the swiss bank exchange.\nChoose an option.\n
+    1. Take out a loan.\n
+    2. Pay onto a loan.\n
+    3. Put money in savings.\n
+    4. Take money from savings.\n
+    5. Leave"
+  airport_menu:
+    "********************\n***** AIRPORT ******\n********************\nYou are currently in %{current_city}.\nWhich City would you like to fly to?\n
+    %{city_options}"
+  sellers_menu:
+    "**********************\n**** SELL DRUGS ******\n**********************\nWhich of your drugs would you like to sell?"
+  buyers_menu:
+    "**********************\n**** BUY DRUGS ******\n**********************\nWhich of these drugs would you like to buy?"
