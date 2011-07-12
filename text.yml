@@ -1,0 +1,16 @@
+game:
+  greeting: Greetings young dealer. What shall I call you?
+  welcome: "Nice to meet you, %{name}. Here is $%{amount}.00 and some %{drug} to get you started."
+  dealer_introduction: 
+    "Now that you have that, there is one more thing you will need.\n
+    Here is a plane ticket, and boarding pass good for 30 days.\n
+    This will allow you to travel to one of 6 specific cities\n
+    You will also need this bag to carry stuff in."
+  main_menu: 
+    "What would you like to do?\n
+    1. Buy drugs\n
+    2. Sell drugs\n
+    3. Fly to a new city\n
+    4. Go to the bank.\n
+    5. Check stats."
+  bad_selection: "You must choose a menu option"  
