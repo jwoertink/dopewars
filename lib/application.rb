@@ -1,5 +1,12 @@
+require 'utilities'
+require 'game'
+require 'player'
+require 'drug'
+require 'bank'
+require 'agent'
+
 module Application
-  include Utilities
+  extend Utilities
   
   # This just kicks off the application.
   def self.run!

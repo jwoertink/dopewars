@@ -20,7 +20,7 @@ MSG
   end
   
   def game_text(key, vars = {})
-    @yml ||= YAML::load(File.open(File.expand_path(File.join(File.dirname(__FILE__), "text.yml"))))["game"]
+    @yml ||= YAML::load(File.open(File.expand_path(File.join(File.dirname(__FILE__), '..', "text.yml"))))["game"]
     unless vars.empty?
       vars.keys.each do |k|
         @yml[key.to_s].gsub!("%{#{k}}", "#{vars[k]}")

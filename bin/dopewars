@@ -4,7 +4,7 @@
 require 'rubygems'
 $:.unshift(File.join(File.dirname(__FILE__), "..", "lib"))
 require 'highline/import'
-require 'utilities'
+#Dir.glob(File.expand_path(File.join('lib', '*.rb'), File.dirname(__FILE__))).reverse.each { |f| require f }
 require 'application'
 
 Application.run!
