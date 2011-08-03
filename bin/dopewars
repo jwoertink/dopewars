@@ -1,0 +1,10 @@
+#!/usr/bin/ruby
+# -*- coding: utf-8 -*-
+
+require 'rubygems'
+$:.unshift(File.join(File.dirname(__FILE__), "..", "lib"))
+require 'highline/import'
+require 'utilities'
+require 'application'
+
+Application.run!
