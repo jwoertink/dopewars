@@ -127,13 +127,23 @@ class Game
     menu_option = ask("Select your option:")
     loop do
       case menu_option
-      when "1" #loan
+      when "1" # Take out a loan
         amount = ask("How much?")
         @player.wallet += amount.to_i
         @player.bank_account.increase_loan(amount.to_i)
         echo("You now have $#{@player.wallet}", :cyan)
         break
-      when "2" #savings
+      when "2" # Pay onto a loan
+        puts "Your current loan amount is #{@player.bank_account.loan_amount}"
+        amount = ask("How much would you like to pay?")
+        if amount.to_i > @player.wallet
+          echo("Sorry, you don't have that much money.", :red)
+        else
+          @player.wallet -= amount.to_i
+          @player.bank_account.decrease_loan(amount.to_i)
+          break
+        end
+      when "3" # Put money into savings
         amount = ask("How much?")
         if amount.to_i > @player.wallet
           echo("Sorry, you don't have that much money.", :red)
@@ -142,11 +152,20 @@ class Game
           @player.bank_account.increase_savings(amount.to_i)
           break
         end
-      when "3" #leave
+      when "4" # Take money from savings
+        amount = ask("How much?")
+        if amount.to_i > @player.wallet
+          echo("Sorry, you don't have that much money.", :red)
+        else
+          @player.wallet += amount.to_i
+          @player.bank_account.decrease_savings(amount.to_i)
+          break
+        end
+      when "5" #leave
         echo("Goodbye.", :blue)
         break
       else
-        menu_option = ask("Please select options 1,2, or 3:")
+        menu_option = ask("Please select an available option:")
       end
     end
   end

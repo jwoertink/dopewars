@@ -37,9 +37,10 @@ Options are normally numbers 1 through 5 or so.
   
 * Current Location is updated before flying away
 * All drugs are always available
-* No way to pay back loans in the bank
-* No way to pull money from savings
 * Not tested on windows
+* Battles with DEA agents are skewed and you're most likely to lose :(
+* Need some text updates to help you figure out what choices to make
+* No way to exit game mid way
 
 == Upgrades
 

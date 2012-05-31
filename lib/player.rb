@@ -1,4 +1,6 @@
 class Player
+  include Utilities
+  
   attr_accessor :name, :drugs, :wallet, :days_remaining, :bank_account, :end_of_turn, :speed, :accuracy, :evasion, :endurance
   
   def initialize(defaults = {})

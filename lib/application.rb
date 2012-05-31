@@ -1,3 +1,4 @@
+require 'highline/import'
 require 'utilities'
 require 'game'
 require 'player'

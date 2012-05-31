@@ -1,4 +1,5 @@
-
+require 'rubygems'
+require 'termios'
 
 # get the original settings and save a backup
 term = Termios::getattr($stdin)
@@ -12,11 +13,17 @@ term.c_lflag &= ~Termios::ECHO
 
 Termios.setattr($stdin, Termios::TCSANOW, term)
 
+threads = []
 
-while c = STDIN.getc
-  puts "Read: #{c.inspect}"
+threads << Thread.new("root") do
+  while c = STDIN.getc
+    puts "Read: #{c.inspect}"
+  end
 end
 
+threads << Thread.new("side") do
+  puts "doing stuff here?"
+end
+threads.map(&:join)
 
-
-Termios.setattr($stdin, Termios::TCSANOW, origin_term)
+Termios.setattr($stdin, Termios::TCSANOW, original_term)
