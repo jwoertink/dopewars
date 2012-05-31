@@ -31,7 +31,10 @@ Options are normally numbers 1 through 5 or so.
   $ cd dopewars
   $ bundle
   
-* Requires Ruby 1.9+ and Rubygems 1.5+
+== Requirements
+* Ruby 1.9+ 
+* Rubygems 1.5+
+* bundler gem (gem install bundler)
   
 == Current Issues
   

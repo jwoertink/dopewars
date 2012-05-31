@@ -14,8 +14,7 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
-  bundler (~> 1.0.0)
   highline
   jeweler (~> 1.6.0)
-  rake
   ruby-termios
+  win32console

@@ -1,3 +1,4 @@
+require 'win32console' if RUBY_PLATFORM =~ /mingw/
 require 'highline/import'
 require 'utilities'
 require 'game'
@@ -5,6 +6,7 @@ require 'player'
 require 'drug'
 require 'bank'
 require 'agent'
+
 
 module Application
   extend Utilities

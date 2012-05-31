@@ -1,5 +1,6 @@
 require 'rubygems'
-require 'termios'
+require 'bundler'
+Bundler.require(:experimental)
 
 # get the original settings and save a backup
 term = Termios::getattr($stdin)

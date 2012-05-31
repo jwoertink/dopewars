@@ -1,7 +1,12 @@
 source "http://rubygems.org"
 
-gem "rake"
 gem "highline"
-gem "ruby-termios", :require => "termios"
-gem "bundler", "~> 1.0.0"
-gem "jeweler", "~> 1.6.0"
+gem "win32console", :platforms => [:mingw, :mswin]
+
+group :experimental do
+  gem "ruby-termios", :require => "termios"
+end
+
+group :development do
+  gem "jeweler", "~> 1.6.0"
+end
