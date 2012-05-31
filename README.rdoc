@@ -15,7 +15,11 @@ Simple economy. Drug value is, to some degree, determined randomly by the day.
 
 == How to play
 
-  $ ruby dopewars.rb
+  $ ruby dopewars
+  
+if that doesn't work, then you may need to run
+  
+  $ ruby bin/dopewars
   
 You will be walked through during gameplay. Type "S" to start, or "Q" to quit.
 Options are normally numbers 1 through 5 or so.
@@ -35,6 +39,7 @@ Options are normally numbers 1 through 5 or so.
 * All drugs are always available
 * No way to pay back loans in the bank
 * No way to pull money from savings
+* Not tested on windows
 
 == Upgrades
 
