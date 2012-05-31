@@ -1,3 +1,9 @@
+=begin
+  This file is an experimental test to create a global session for the game
+  the idea would be to allow input from any point in the game and not just during menu choices
+  the benefit would mean you could access any menu at any time.
+=end
+
 require 'rubygems'
 require 'bundler'
 Bundler.require(:experimental)

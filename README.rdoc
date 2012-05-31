@@ -1,4 +1,4 @@
-= Dopewars v.1.1
+= Dopewars v.2.1
 
 This is a Ruby port of the original dopewars/drugwars game.
 
@@ -14,12 +14,13 @@ You lose only if you get caught, or if you owe any money at the end of the game.
 Simple economy. Drug value is, to some degree, determined randomly by the day.
 
 == How to play
+For linux/mac
 
   $ ruby dopewars
   
-if that doesn't work, then you may need to run
+For windows
   
-  $ ruby bin/dopewars
+  $ ruby bin\dopewars
   
 You will be walked through during gameplay. Type "S" to start, or "Q" to quit.
 Options are normally numbers 1 through 5 or so.
@@ -29,7 +30,7 @@ Options are normally numbers 1 through 5 or so.
 
   $ git clone git@github.com:jwoertink/dopewars.git
   $ cd dopewars
-  $ bundle
+  $ bundle install --without experimental
   
 == Requirements
 * Ruby 1.9+ 
@@ -44,6 +45,9 @@ Options are normally numbers 1 through 5 or so.
 * Battles with DEA agents are skewed and you're most likely to lose :(
 * Need some text updates to help you figure out what choices to make
 * No way to exit game mid way
+* Drugs stay in your bag after you've sold them all
+* Drug prices change after purchasing them even in the same city. They should only change per day
+* Not able to take from your savings more than what's in your wallet >_<
 
 == Upgrades
 
