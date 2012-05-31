@@ -1,4 +1,5 @@
 class Game
+  include Utilities
   
   LOCATIONS = ["Las Vegas", "New York", "Miami", "Amsterdam", "Frankfurt", "El-Jazier"]
   

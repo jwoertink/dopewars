@@ -2,7 +2,9 @@
 # -*- coding: utf-8 -*-
 
 require 'rubygems'
+require 'bundler'
 $:.unshift(File.join(File.dirname(__FILE__), "..", "lib"))
+Bundler.require
 require 'highline/import'
 #Dir.glob(File.expand_path(File.join('lib', '*.rb'), File.dirname(__FILE__))).reverse.each { |f| require f }
 require 'application'
