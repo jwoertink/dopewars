@@ -3,16 +3,14 @@ class Drug
   
   TYPES = ["weed", "ecstacy", "shrooms", "oxycotin", "acid", "ruffies", "crack", "cocaine", "heroin", "crystal meth"]
   
-  def self.street_price
-    rand(500) + 10
-  end
-  
   def initialize(defaults = {})
     defaults.each_pair { |key,value| instance_variable_set("@#{key}", value) }
+    @sellable = true
   end
   
   def can_be_sold?
-    true
+    @sellable
   end
+
   
 end

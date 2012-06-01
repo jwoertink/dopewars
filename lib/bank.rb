@@ -5,7 +5,7 @@ class Bank
   def initialize
     @loan_amount = 0
     @savings_account = 0
-    @interest = 1.5
+    @interest = 0.25
   end
   
   def increase_loan(amount)

@@ -1,12 +1,12 @@
 require 'win32console' if RUBY_PLATFORM =~ /mingw/
 require 'highline/import'
 require 'utilities'
-require 'game'
+require 'city'
 require 'player'
 require 'drug'
 require 'bank'
 require 'agent'
-
+require 'game'
 
 module Application
   extend Utilities
@@ -14,7 +14,7 @@ module Application
   # This just kicks off the application.
   def self.run!
     echo(Utilities::GAME_TITLE, :green, 0)
-    key = ask("[S]tart a new game or [Q]uit?") { |q| q.echo = true }
+    key = ask("[S]tart a new game or [Q]uit?")
 
     if key.downcase.eql?('s')
       player_name = ask(game_text(:greeting))

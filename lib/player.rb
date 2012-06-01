@@ -96,7 +96,7 @@ class Player
   
   def end_turn!
     bank_account.add_daily_interest
-    battle_agent if agent_encounter?
+    battle_agent if encounter_agent?
     @end_of_turn = true
   end
   
@@ -104,7 +104,7 @@ class Player
     @end_of_turn
   end
   
-  def agent_encounter?
+  def encounter_agent?
     Agent.near_by?
   end
   

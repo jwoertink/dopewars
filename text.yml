@@ -10,7 +10,7 @@ game:
     3. Fly to a new city\n
     4. Go to the bank.\n
     5. Check stats."
-  bad_selection: "You must choose a menu option"  
+  bad_selection: "You must choose an available menu option"  
   check_stats_menu: 
     "**********************\n******* STATS ********\n**********************"
   bank_menu: 
@@ -21,8 +21,7 @@ game:
     4. Take money from savings.\n
     5. Leave"
   airport_menu:
-    "********************\n***** AIRPORT ******\n********************\nYou are currently in %{current_city}.\nWhich City would you like to fly to?\n
-    %{city_options}"
+    "********************\n***** AIRPORT ******\n********************\nYou are currently in %{current_city}.\nWhich City would you like to fly to?\n%{city_options}"
   sellers_menu:
     "**********************\n**** SELL DRUGS ******\n**********************\nWhich of your drugs would you like to sell?"
   buyers_menu:

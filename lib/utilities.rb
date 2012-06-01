@@ -4,7 +4,7 @@ module Utilities
   
   GAME_TITLE = <<-MSG
 ******************
-* Dopewars v1.1
+* Dopewars v#{File.read(File.join(File.dirname(__FILE__), '..', 'VERSION'))}
 * 
 ******************
 MSG
@@ -16,7 +16,7 @@ MSG
   end
   
   def game_defaults
-    {playable: true, days: 30, current_day: 0, current_location: Game::LOCATIONS.sort_by { rand }.first}
+    {playable: true, days: 30, current_day: 0, current_location: City.new}
   end
   
   def game_text(key, vars = {})
