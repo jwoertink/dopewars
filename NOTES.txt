@@ -33,9 +33,22 @@ There are random federal agents
 There is 1 bank
 	1. you can borrow
 	2. you can save
-	3. gains interest at 1.5% a day
+	3. gains interest at .25% a day
 
 There are 3 bags
 	1. small back pack - holds 50 drugs and 1 weapon
 	2. briefcase - holds 100 drugs and 1 weapon
 	3. large case - holds 500 drugs and 2 weapons
+
+*******************
+UI:
+  System text = white
+  People text = green
+  Menu text = blue
+  Alert text = yellow
+  Error text = red
+  Misc text = purple
+  Battle start = blink ?
+  
+
+

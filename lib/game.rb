@@ -65,27 +65,31 @@ class Game
   end
   
   def sellers_menu
-    echo(game_text(:sellers_menu), :blue, 0)
-    i = 0
-    drugs = []
-    @player.drugs.each_pair do |drug, amount|
-      dime_bag = Drug.new({name: drug, price: @current_location.market_price_for_drug, quantity: amount})
-      echo("#{i + 1}. #{dime_bag.name} x #{dime_bag.quantity} @ $#{dime_bag.price}ea", :cyan, 0)
-      drugs << dime_bag
-      i +=1
-    end
-    loop do
-      menu_option = ask("Select your option: ", Integer) { |q| q.in = 0..i }
-      drug = drugs[menu_option - 1]
-      amount =  ask("How many? ", Integer)
-      if amount.to_i <= @player.drugs[drug.name]
-        @player.remove_from_drugs({drug.name => amount.to_i})
-        increase = drugs[menu_option.to_i - 1].price * amount.to_i
-        @player.wallet += increase
-        echo("You made $#{increase}", :cyan)
-        break
-      else
-        echo("You can't sell more then #{drug.quantity} of #{drug.name}.", :red, 0)
+    if @player.drugs.empty?
+      echo("You must purchase drugs first", :red, 0)
+    else
+      echo(game_text(:sellers_menu), :blue, 0)
+      i = 0
+      drugs = []
+      @player.drugs.each_pair do |drug, amount|
+        dime_bag = Drug.new({name: drug, price: @current_location.market_price_for_drug, quantity: amount})
+        echo("#{i + 1}. #{dime_bag.name} x #{dime_bag.quantity} @ $#{dime_bag.price}ea", :cyan, 0)
+        drugs << dime_bag
+        i +=1
+      end
+      loop do
+        menu_option = ask("Select your option: ", Integer) { |q| q.in = 0..i }
+        drug = drugs[menu_option - 1]
+        amount =  ask("How many? ", Integer)
+        if amount.to_i <= @player.drugs[drug.name]
+          @player.remove_from_drugs({drug.name => amount.to_i})
+          increase = drugs[menu_option.to_i - 1].price * amount.to_i
+          @player.wallet += increase
+          echo("You made $#{increase}", :cyan)
+          break
+        else
+          echo("You can't sell more then #{drug.quantity} of #{drug.name}.", :red, 0)
+        end
       end
     end
   end
@@ -110,6 +114,7 @@ class Game
   end
   
   def bank_menu
+    echo(echo_ascii(game_text(:bank_title)), :purple, 0)
     echo(game_text(:bank_menu), :blue, 0)
     menu_option = ask("Select your option:")
     loop do
@@ -160,10 +165,10 @@ class Game
   end
   
   def check_stats_menu
-    echo(game_text(:check_stats_menu), :blue, 0)
-    str = "Current Location: #{@current_location.name}\n"
-    str << "Days remaining: #{days_remaining}\n"
-    echo(@player.stats << str, :yellow)
+    echo(echo_ascii(game_text(:stats_title)), :purple, 0)
+    str = " Current Location: #{@current_location.name}\n"
+    str << " Days remaining: #{days_remaining}\n"
+    echo(@player.stats << str, :cyan)
   end
   
   #Main game loop

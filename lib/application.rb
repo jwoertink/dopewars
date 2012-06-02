@@ -1,4 +1,5 @@
 require 'win32console' if RUBY_PLATFORM =~ /mingw/
+require "artii"
 require 'highline/import'
 require 'utilities'
 require 'city'
@@ -13,11 +14,11 @@ module Application
   
   # This just kicks off the application.
   def self.run!
-    echo(Utilities::GAME_TITLE, :green, 0)
+    echo(echo_ascii("Dopewars"), :purple, 0)
     key = ask("[S]tart a new game or [Q]uit?")
 
     if key.downcase.eql?('s')
-      player_name = ask(game_text(:greeting))
+      player_name = ask(color(game_text(:greeting), :green))
       player_defaults = {name: player_name, wallet: 500, drugs: {weed: 5}}
       @game = Game.new(game_defaults.merge(player: Player.new(player_defaults)))
       @game.start!

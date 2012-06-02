@@ -1,6 +1,7 @@
 GEM
   remote: http://rubygems.org/
   specs:
+    artii (2.0.1)
     git (1.2.5)
     highline (1.6.2)
     jeweler (1.6.4)
@@ -14,6 +15,7 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
+  artii
   highline
   jeweler (~> 1.6.0)
   ruby-termios

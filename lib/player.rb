@@ -4,7 +4,7 @@ class Player
   attr_accessor :name, :drugs, :wallet, :days_remaining, :bank_account, :end_of_turn, :speed, :accuracy, :evasion, :endurance
   
   def initialize(defaults = {})
-    @name = defaults[:name]
+    @name = defaults[:name].capitalize
     @drugs = defaults[:drugs]
     @wallet = defaults[:wallet]
     @speed = ((rand(100) / 2) + Math::PI).ceil
@@ -30,12 +30,17 @@ class Player
   
   def stats
     str = ""
-    str << "Stats for #{name}\n"
-    str << "Drugs:\n"
-    drugs.each { |k,v| str << "- #{k} x #{v}\n" }
-    str << "Wallet: $#{wallet}\n"
-    str << "Total savings: $#{bank_account.savings_account}\n"
-    str << "Total loans: $#{bank_account.loan_amount}\n"
+    str << "Stats #{name}:\n"
+    str << " Drugs:\n"
+    drugs.each { |k,v| str << " - #{k} x #{v}\n" }
+    str << " Wallet: $#{wallet}\n"
+    str << " Total savings: $#{bank_account.savings_account}\n"
+    str << " Total loans: $#{bank_account.loan_amount}\n"
+    str << " Level: 1\n"
+    str << " Speed: #{speed}\n"
+    str << " Accuracy: #{accuracy}\n"
+    str << " Evasion: #{evasion}\n"
+    str << " Endurance: #{endurance}\n"
     str
   end
   
@@ -49,19 +54,20 @@ class Player
     drug.can_be_sold?
   end
   
-  def add_to_drugs(drugs)
-    drugs.each_pair do |drug, amount|
+  def add_to_drugs(drugs_to_add)
+    drugs_to_add.each_pair do |drug, amount|
       if @drugs.has_key?(drug)
-        @drugs[drug] += drugs[drug]
+        @drugs[drug] += drugs_to_add[drug]
       else
         @drugs.update({drug => amount})
       end
     end
   end
   
-  def remove_from_drugs(drugs)
-    drugs.each_pair do |drug, amount|
-      @drugs[drug] -= drugs[drug]
+  def remove_from_drugs(drugs_to_add)
+    drugs_to_add.each_pair do |drug, amount|
+      @drugs[drug] -= drugs_to_add[drug]
+      @drugs.delete(drug) if @drugs[drug].zero?
     end    
   end
   
