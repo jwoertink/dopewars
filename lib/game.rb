@@ -17,24 +17,54 @@ class Game
     @days - @current_day
   end
   
+  def awareness_level_warning
+    level = case @current_location.transactions
+    when 3
+      echo(game_text(:awareness_notice, {:city => @current_location.name}), :yellow, 0)
+      0 # no chance of getting caught
+    when 4
+      echo(game_text(:high_awareness_notice), :yellow, 0)
+      (rand(100) + 30) # 40% chance of being safe
+    when 5
+      echo(game_text(:high_awareness_notice), :yellow, 0)
+      (rand(100) + 40) # 30% chance of being safe
+    when 6
+      echo(game_text(:high_awareness_notice), :yellow, 0)
+      (rand(100) + 50) # 20% chance of being safe
+    when 7
+      echo(game_text(:high_awareness_notice), :yellow, 0)
+      (rand(100) + 60) # 10% chance of being safe
+    else
+      0
+    end
+    
+    return level
+  end
+  
   #Maybe this should be moved?
   def select_menu(menu_option)
-    case menu_option.to_i
-    when 1
-      buyers_menu
-    when 2
-      sellers_menu
-    when 3
-      airport_menu
-    when 4
-      bank_menu
-    when 5
-      check_stats_menu
+    level = awareness_level_warning
+    
+    if level > 70
+      battle_agent_menu
     else
-      echo(game_text(:bad_selection), :red, 0)
-      echo(game_text(:main_menu), :blue, 0)
-      menu_option = ask("Select your option: ", Integer) { |q| q.in = 1..5 }
-      select_menu(menu_option)
+      case menu_option.to_i
+      when 1
+        buyers_menu
+      when 2
+        sellers_menu
+      when 3
+        airport_menu
+      when 4
+        bank_menu
+      when 5
+        check_stats_menu
+      else
+        echo(game_text(:bad_selection), :red, 0)
+        echo(game_text(:main_menu), :blue, 0)
+        menu_option = ask("Select your option: ", Integer) { |q| q.in = 1..5 }
+        select_menu(menu_option)
+      end
     end
   end
   
@@ -50,13 +80,14 @@ class Game
     end
     loop do
       menu_option = ask("Select your option: ", Integer) { |q| q.in = available_options.map(&:to_i) }
-      drug = drugs[menu_option.to_i - 1]
+      drug = drugs[menu_option - 1]
       amount = ask("How Many? ", Integer) { |q| q.above = 0 }
       decrease = (drug.price * amount.to_i)
       if @player.can_buy_drug?(drug.price, amount.to_i)
         @player.add_to_drugs({drug.name => amount.to_i})
         @player.wallet -= decrease
         echo("You have $#{@player.wallet} left.", :cyan)
+        @current_location.transactions += 1
         break
       else
         echo("You can't buy that many.", :red)
@@ -86,6 +117,7 @@ class Game
           increase = drugs[menu_option.to_i - 1].price * amount.to_i
           @player.wallet += increase
           echo("You made $#{increase}", :cyan)
+          @current_location.transactions += 1
           break
         else
           echo("You can't sell more then #{drug.quantity} of #{drug.name}.", :red, 0)
@@ -95,6 +127,7 @@ class Game
   end
   
   def airport_menu
+    echo(echo_ascii(game_text(:airport_title)), :purple, 0)
     city_options = ""
     available_options = []
     City::LOCATIONS.each_with_index do |city, select_number|
@@ -110,7 +143,11 @@ class Game
       break
     end
     
-    @player.end_turn!
+    if @player.encounter_agent?
+      battle_agent_menu
+    else
+      @player.end_turn!
+    end
   end
   
   def bank_menu
@@ -171,18 +208,49 @@ class Game
     echo(@player.stats << str, :cyan)
   end
   
+  def battle_agent_menu
+    agent = Agent.new
+    echo("#{@player.name}, there is an agent chasing you!", :yellow)
+    loop do
+      choice = ask("Will you [F]ight or [R]un?")
+      case choice.downcase
+      when 'f'
+        result = @player.fight(agent)
+        if result
+          @bonus_amount = 100000
+          echo(game_text(:killed_agent, {:name => @player.name, :bonus_amount => @bonus_amount}), :green)
+          @player.wallet += @bonus_amount
+        else
+          echo("You have been captured.", :red)
+          
+        end
+        break
+      when 'r'
+        result = @player.run_from(agent)
+        if result
+          echo("You escaped this time, but be on the look out", :green)
+        else
+          echo("You have been captured.", :red)
+        end
+        break
+      else
+        echo("You must select F or R", :red, 0)
+      end
+    end
+  end
+  
   #Main game loop
   def start!
     echo(game_text(:welcome, {:name => @player.name, :amount => @player.wallet, :drug => @player.drugs.keys.first}), :green)
     echo(game_text(:dealer_introduction), :green)
-    echo("You have #{days_remaining} Days Remaining", :yellow, 1)
+    echo("You have #{days_remaining} Days Remaining", :yellow)
     while days_remaining > 0
       @player.start_turn!
       loop do
         echo(game_text(:main_menu), :blue, 0)
         menu_option = ask("Select your option:")
         select_menu(menu_option)
-        break if @player.end_of_turn?
+        break if @player.end_of_turn? or @player.captured?
       end
       break if game_over? or @player.captured?
       @current_day += 1

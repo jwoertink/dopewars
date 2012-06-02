@@ -25,7 +25,7 @@ game:
     4. Take money from savings.\n
     5. Leave"
   airport_title:
-    "AIRPORT"
+    "> AIRPORT <"
   airport_menu:
     "You are currently in %{current_city}.\nWhich City would you like to fly to?\n%{city_options}"
   sellers_title:
@@ -36,3 +36,11 @@ game:
     "BUY DRUGS"
   buyers_menu:
     "Which of these drugs would you like to buy?"
+  battle_title:
+    "Agent Battle"
+  killed_agent:
+    "Congrats, %{name}! You have killed a DEA agent. You have earned a bonus of $%{bonus_amount}. Be on the lookout, you're wanted internationally now.\n\n"
+  awareness_notice:
+    "People are starting to notice you. If you stay in %{city} for too long, agents may catch on.\n\n"
+  high_awareness_notice:
+    "You have been spotted by a few people. Agents have been alerted of your location.\n You should fly to a new city before you're caught!\n\n"

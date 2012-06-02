@@ -1,7 +1,7 @@
 class Player
   include Utilities
   
-  attr_accessor :name, :drugs, :wallet, :days_remaining, :bank_account, :end_of_turn, :speed, :accuracy, :evasion, :endurance
+  attr_accessor :name, :drugs, :wallet, :days_remaining, :bank_account, :end_of_turn, :speed, :accuracy, :evasion, :endurance, :transactions
   
   def initialize(defaults = {})
     @name = defaults[:name].capitalize
@@ -56,8 +56,9 @@ class Player
   
   def add_to_drugs(drugs_to_add)
     drugs_to_add.each_pair do |drug, amount|
+      drug = drug.to_sym
       if @drugs.has_key?(drug)
-        @drugs[drug] += drugs_to_add[drug]
+        @drugs[drug] += amount
       else
         @drugs.update({drug => amount})
       end
@@ -81,12 +82,11 @@ class Player
       result = defending > agent.attacking
     else
       result = attacking > agent.defending
-      # need to add bonus for killing an agent
     end
     @free = result
   end
   
-  def run(agent)
+  def run_from(agent)
     if running > agent.running
       # You run faster than the agent
       result = true
@@ -102,7 +102,6 @@ class Player
   
   def end_turn!
     bank_account.add_daily_interest
-    battle_agent if encounter_agent?
     @end_of_turn = true
   end
   
@@ -114,25 +113,8 @@ class Player
     Agent.near_by?
   end
   
-  # This belongs in the game
   def battle_agent
-    agent = Agent.new
-    echo("#{name}, there is an agent chasing you!", :green)
-    choice = ask("Will you [F]ight or [R]un?")
-    case choice.downcase
-    when 'f'
-      result = fight(agent)
-    when 'r'
-      result = run(agent)
-    else
-      echo("You must select F or R", :red)
-      battle_agent
-    end
-    if result
-      echo("You escaped this time, but be on the look out", :green)
-    else
-      echo("You have been captured.", :red)
-    end
+    
   end
   
 end

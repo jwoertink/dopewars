@@ -1,11 +1,13 @@
 class City
-  attr_accessor :name, :drugs
+  include Utilities
+  attr_accessor :name, :drugs, :transactions
   
   LOCATIONS = ["Las Vegas", "New York", "Miami", "Amsterdam", "Frankfurt", "El-Jazier"]
   
   def initialize(options = {})
     @name = options[:name] ||= LOCATIONS.sort_by { rand }.first
     gather_drugs
+    @transactions = 0
   end
   
   def gather_drugs
@@ -17,5 +19,6 @@ class City
   def market_price_for_drug
     rand(500) + 10
   end
+  
   
 end

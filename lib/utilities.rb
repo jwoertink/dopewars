@@ -35,7 +35,7 @@ MSG
     "#{TEXT[kolor]}#{text}#{TEXT[:reset]}"
   end
   
-  def echo(message, colour = :white, wait_time = 2)
+  def echo(message, colour = :white, wait_time = 1)
     #const = ::HighLine.const_get(colour.to_s.upcase)
     #say(%{<%= color("#{message}", "#{const}") %>})
     puts color(message, colour)
