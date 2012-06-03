@@ -11,6 +11,10 @@ game:
     4. Go to the bank.\n
     5. Check stats."
   bad_selection: "You must choose an available menu option"
+  help_menu_title:
+    "? HELP ?"
+  help_menu:
+    "Dopewars help\n? - Displays this menu\nWhen given options, they are usually numbers\n"
   stats_title:
     "STATS"
   check_stats_menu: 

@@ -54,6 +54,19 @@ class Player
     drug.can_be_sold?
   end
   
+  def has_drugs?
+    !@drugs.empty?
+  end
+  
+  # See if the player has enough money to buy drugs from a particular city
+  def can_afford_drugs?(drugs_from_city)
+    num_of_purchasable_drugs = 0
+    drugs_from_city.each do |drug|
+      num_of_purchasable_drugs += 1 unless (@wallet / drug.price).zero?
+    end
+    num_of_purchasable_drugs > 0
+  end
+  
   def add_to_drugs(drugs_to_add)
     drugs_to_add.each_pair do |drug, amount|
       drug = drug.to_sym

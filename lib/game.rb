@@ -48,57 +48,61 @@ class Game
     if level > 70
       battle_agent_menu
     else
-      case menu_option.to_i
-      when 1
+      case menu_option
+      when '1'
         buyers_menu
-      when 2
+      when '2'
         sellers_menu
-      when 3
+      when '3'
         airport_menu
-      when 4
+      when '4'
         bank_menu
-      when 5
+      when '5'
         check_stats_menu
+      when '?'
+        help_menu
       else
         echo(game_text(:bad_selection), :red, 0)
         echo(game_text(:main_menu), :blue, 0)
-        menu_option = ask("Select your option: ", Integer) { |q| q.in = 1..5 }
+        menu_option = ask("Select your option: ") { |q| q.in = ('1'..'5').to_a }
         select_menu(menu_option)
       end
     end
   end
   
   def buyers_menu
-    echo(game_text(:buyers_menu), :blue, 0)
-    available_options = []
-    drugs = []
-    @current_location.drugs.each_with_index do |drug, select_number|
-      drugs << drug
-      max_amount = @player.wallet / drug.price
-      echo("#{select_number + 1}. #{drug.name} @ $#{drug.price} {#{max_amount}}", :cyan, 0)
-      available_options << (select_number + 1)
-    end
-    loop do
-      menu_option = ask("Select your option: ", Integer) { |q| q.in = available_options.map(&:to_i) }
-      drug = drugs[menu_option - 1]
-      amount = ask("How Many? ", Integer) { |q| q.above = 0 }
-      decrease = (drug.price * amount.to_i)
-      if @player.can_buy_drug?(drug.price, amount.to_i)
-        @player.add_to_drugs({drug.name => amount.to_i})
-        @player.wallet -= decrease
-        echo("You have $#{@player.wallet} left.", :cyan)
-        @current_location.transactions += 1
-        break
-      else
-        echo("You can't buy that many.", :red)
+    if @player.can_afford_drugs?(@current_location.drugs)
+      echo(game_text(:buyers_menu), :blue, 0)
+      available_options = []
+      drugs = []
+      @current_location.drugs.each_with_index do |drug, select_number|
+        drugs << drug
+        max_amount = @player.wallet / drug.price
+        echo("#{select_number + 1}. #{drug.name} @ $#{drug.price} {#{max_amount}}", :cyan, 0)
+        available_options << (select_number + 1)
       end
+      loop do
+        menu_option = ask("Select your option: ", Integer) { |q| q.in = available_options.map(&:to_i) }
+        drug = drugs[menu_option - 1]
+        amount = ask("How Many? ", Integer) { |q| q.above = 0 }
+        decrease = (drug.price * amount.to_i)
+        if @player.can_buy_drug?(drug.price, amount.to_i)
+          @player.add_to_drugs({drug.name => amount.to_i})
+          @player.wallet -= decrease
+          echo("You have $#{@player.wallet} left.", :cyan)
+          @current_location.transactions += 1
+          break
+        else
+          echo("You can't buy that many.", :red)
+        end
+      end
+    else
+      echo("You're too broke to purchase. Go to the bank.", :red)
     end
   end
   
   def sellers_menu
-    if @player.drugs.empty?
-      echo("You must purchase drugs first", :red, 0)
-    else
+    if @player.has_drugs?
       echo(game_text(:sellers_menu), :blue, 0)
       i = 0
       drugs = []
@@ -106,7 +110,7 @@ class Game
         dime_bag = Drug.new({name: drug, price: @current_location.market_price_for_drug, quantity: amount})
         echo("#{i + 1}. #{dime_bag.name} x #{dime_bag.quantity} @ $#{dime_bag.price}ea", :cyan, 0)
         drugs << dime_bag
-        i +=1
+        i += 1
       end
       loop do
         menu_option = ask("Select your option: ", Integer) { |q| q.in = 0..i }
@@ -123,6 +127,8 @@ class Game
           echo("You can't sell more then #{drug.quantity} of #{drug.name}.", :red, 0)
         end
       end
+    else
+      echo("You must purchase drugs first", :red, 0)
     end
   end
   
@@ -237,6 +243,11 @@ class Game
         echo("You must select F or R", :red, 0)
       end
     end
+  end
+  
+  def help_menu
+    echo(echo_ascii(game_text(:help_menu_title)), :purple, 0)
+    echo(game_text(:help_menu), :blue)
   end
   
   #Main game loop

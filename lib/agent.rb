@@ -1,6 +1,6 @@
 class Agent
   
-  attr_accessor :speed, :accuracy, :evasion, :endurance
+  attr_accessor :speed, :accuracy, :evasion, :endurance, :level
   
   class << self
     
@@ -13,6 +13,7 @@ class Agent
   # The higher the speed, the better chance the agent has of catching you if you try to run
   # The higher the accuracy, the better chance the agent has of shooting you if you try to fight
   def initialize
+    @level = 1
     @speed = ((rand(100) / 2) + Math::PI).ceil
     @endurance = ((rand(100) / 2) + Math::PI).ceil
     @evasion = ((rand(100) / 2) + Math::PI).ceil

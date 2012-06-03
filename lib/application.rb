@@ -15,6 +15,7 @@ module Application
   # This just kicks off the application.
   def self.run!
     echo(echo_ascii("Dopewars"), :purple, 0)
+    echo("v#{Utilities::VERSION}", :purple, 0)
     key = ask("[S]tart a new game or [Q]uit?")
 
     if key.downcase.eql?('s')
