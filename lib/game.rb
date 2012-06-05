@@ -59,12 +59,14 @@ class Game
         bank_menu
       when '5'
         check_stats_menu
+      when '6'
+        gym_menu
       when '?'
         help_menu
       else
         echo(game_text(:bad_selection), :red, 0)
         echo(game_text(:main_menu), :blue, 0)
-        menu_option = ask("Select your option: ") { |q| q.in = ('1'..'5').to_a }
+        menu_option = ask("Select your option: ") { |q| q.in = ('1'..'6').to_a }
         select_menu(menu_option)
       end
     end
@@ -141,18 +143,25 @@ class Game
       available_options << (select_number + 1)
       city_options += "#{select_number + 1}. #{city}\n"
     end
+    available_options << (City::LOCATIONS.length + 1)
+    city_options += "#{City::LOCATIONS.length + 1}. Leave\n"
     echo(game_text(:airport_menu, {current_city: @current_location.name ,city_options: city_options}), :blue, 0)
     loop do
       menu_option = ask("Select your option: ", Integer) { |q| q.in = available_options.map(&:to_i) }
-      @current_location = City.new(name: City::LOCATIONS[menu_option.to_i - 1])
-      echo("You fly to #{@current_location.name}", :cyan)
-      break
-    end
-    
-    if @player.encounter_agent?
-      battle_agent_menu
-    else
-      @player.end_turn!
+      case menu_option
+      when City::LOCATIONS.length + 1
+        echo("Goodbye.", :green)
+        break
+      else
+        @current_location = City.new(name: City::LOCATIONS[menu_option.to_i - 1])
+        echo("You fly to #{@current_location.name}", :cyan)
+        if @player.encounter_agent?
+          battle_agent_menu
+        else
+          @player.end_turn!
+        end
+        break
+      end
     end
   end
   
@@ -199,7 +208,7 @@ class Game
           break
         end
       when "5" #leave
-        echo("Goodbye.", :blue)
+        echo("Goodbye.", :green)
         break
       else
         menu_option = ask("Please select an available option:")
@@ -214,35 +223,39 @@ class Game
     echo(@player.stats << str, :cyan)
   end
   
+  def gym_menu
+    if @player.visited_gym?(@current_location)
+      echo("You've already worked out today, come back tomorrow.", :red)
+    else
+      echo(echo_ascii(game_text(:gym_title)), :purple, 0)
+      echo(game_text(:gym_menu), :blue)
+      menu_option = ask("Select your option:")
+      loop do
+        case menu_option
+        when '1'
+          current_level = @player.level
+          @player.workout!
+          if @player.level > current_level
+            echo(game_text(:player_gained_level, {:level => @player.level, :new_stats => @player.stats(false)}), :green, 0)
+          else
+            echo("You had a good workout, but still need improvement", :cyan)
+          end
+          @current_location.gym_closed = true
+          break
+        when '2' #leave
+          echo("Goodbye.", :green)
+          break
+        else
+        end
+      end
+    end
+  end
+  
   def battle_agent_menu
     agent = Agent.new
     echo("#{@player.name}, there is an agent chasing you!", :yellow)
-    loop do
-      choice = ask("Will you [F]ight or [R]un?")
-      case choice.downcase
-      when 'f'
-        result = @player.fight(agent)
-        if result
-          @bonus_amount = 100000
-          echo(game_text(:killed_agent, {:name => @player.name, :bonus_amount => @bonus_amount}), :green)
-          @player.wallet += @bonus_amount
-        else
-          echo("You have been captured.", :red)
-          
-        end
-        break
-      when 'r'
-        result = @player.run_from(agent)
-        if result
-          echo("You escaped this time, but be on the look out", :green)
-        else
-          echo("You have been captured.", :red)
-        end
-        break
-      else
-        echo("You must select F or R", :red, 0)
-      end
-    end
+    current_battle = Battle.new(@player, [agent])
+    current_battle.start
   end
   
   def help_menu

@@ -1,12 +1,13 @@
-class Player
-  include Utilities
+class Player < Fighter
   
-  attr_accessor :name, :drugs, :wallet, :days_remaining, :bank_account, :end_of_turn, :speed, :accuracy, :evasion, :endurance, :transactions
+  attr_accessor :name, :drugs, :wallet, :days_remaining, :bank_account, :end_of_turn, :transactions
   
   def initialize(defaults = {})
     @name = defaults[:name].capitalize
     @drugs = defaults[:drugs]
     @wallet = defaults[:wallet]
+    @level = 1
+    @hp = 2
     @speed = ((rand(100) / 2) + Math::PI).ceil
     @accuracy = ((rand(100) / 2) + Math::PI).ceil
     @evasion = ((rand(100) / 2) + Math::PI).ceil
@@ -16,32 +17,42 @@ class Player
     @free = true
   end
   
-  def running
-    @speed + @endurance
+  def running(boost)
+    @speed + @endurance + boost.to_i
   end
   
   def defending
     @evasion
   end
   
-  def attacking
-    @accuracy
+  def attacking(boost)
+    @accuracy + boost.to_i
   end
   
-  def stats
-    str = ""
-    str << "Stats #{name}:\n"
-    str << " Drugs:\n"
-    drugs.each { |k,v| str << " - #{k} x #{v}\n" }
-    str << " Wallet: $#{wallet}\n"
-    str << " Total savings: $#{bank_account.savings_account}\n"
-    str << " Total loans: $#{bank_account.loan_amount}\n"
-    str << " Level: 1\n"
-    str << " Speed: #{speed}\n"
-    str << " Accuracy: #{accuracy}\n"
-    str << " Evasion: #{evasion}\n"
-    str << " Endurance: #{endurance}\n"
-    str
+  def workout!
+    effort = rand(100)
+    level_up! if effort > 50
+  end
+  
+  def level_up!
+    @level += 1
+    @hp = max_hit_points
+    @speed += @level
+    @accuracy += @level
+    @evasion += @level
+    @endurance += @level
+  end
+  
+  def stats(full = true)
+    if full
+      full_stats
+    else
+      mini_stats
+    end
+  end
+  
+  def visited_gym?(city)
+    city.gym_closed?
   end
   
   # you can buy the drug if you have enough money for the qty of that drug
@@ -78,29 +89,27 @@ class Player
     end
   end
   
-  def remove_from_drugs(drugs_to_add)
-    drugs_to_add.each_pair do |drug, amount|
-      @drugs[drug] -= drugs_to_add[drug]
+  def remove_from_drugs(drugs_to_remove)
+    drugs_to_remove.each_pair do |drug, amount|
+      @drugs[drug] -= drugs_to_remove[drug]
       @drugs.delete(drug) if @drugs[drug].zero?
     end    
   end
   
   def captured?
-    !@free
+    not free? or dead?
   end
   
-  def fight(agent)
-    # 0 = agent shoots first, 1 = you shoot first
-    if rand(10) % 2 == 0
-      result = defending > agent.attacking
-    else
-      result = attacking > agent.defending
-    end
-    @free = result
+  def free?
+    @free
   end
   
-  def run_from(agent)
-    if running > agent.running
+  def fight(agent, with_boost = nil)
+    @free = attacking(with_boost) > agent.defending
+  end
+  
+  def run_from(agent, with_boost = nil)
+    if running(with_boost) > agent.running
       # You run faster than the agent
       result = true
     else
@@ -126,8 +135,29 @@ class Player
     Agent.near_by?
   end
   
-  def battle_agent
-    
-  end
+  private
+  
+    def full_stats
+      str = ""
+      str << "Stats #{name}:\n"
+      str << " Drugs:\n"
+      drugs.each { |k,v| str << " - #{k} x #{v}\n" }
+      str << " Wallet: $#{wallet}\n"
+      str << " Total savings: $#{bank_account.savings_account}\n"
+      str << " Total loans: $#{bank_account.loan_amount}\n"
+      str << mini_stats
+      str
+    end
+
+    def mini_stats
+      str = ""
+      str << " Level: #{level}\n"
+      str << " Hit points: #{hp}\n"
+      str << " Speed: #{speed}\n"
+      str << " Accuracy: #{accuracy}\n"
+      str << " Evasion: #{evasion}\n"
+      str << " Endurance: #{endurance}\n"
+      str
+    end
   
 end

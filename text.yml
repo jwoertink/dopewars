@@ -9,7 +9,8 @@ game:
     2. Sell drugs\n
     3. Fly to a new city\n
     4. Go to the bank.\n
-    5. Check stats."
+    5. Check stats.\n
+    6. Hit the gym."
   bad_selection: "You must choose an available menu option"
   help_menu_title:
     "? HELP ?"
@@ -40,8 +41,16 @@ game:
     "BUY DRUGS"
   buyers_menu:
     "Which of these drugs would you like to buy?"
+  gym_title:
+    "{ GYM }"
+  gym_menu:
+    "Welcome Silver Gloves Gym\nChoose an option.\n
+    1. Work out\n
+    2. Leave"
+  player_gained_level:
+    "Wow! That was an awesome workout. You're now level %{level}.\n%{new_stats}"
   battle_title:
-    "Agent Battle"
+    "X BATTLE X"
   killed_agent:
     "Congrats, %{name}! You have killed a DEA agent. You have earned a bonus of $%{bonus_amount}. Be on the lookout, you're wanted internationally now.\n\n"
   awareness_notice:
