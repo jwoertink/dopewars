@@ -50,6 +50,7 @@ class Game
     else
       case menu_option
       when '1'
+        #battle_agent_menu
         buyers_menu
       when '2'
         sellers_menu

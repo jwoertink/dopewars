@@ -56,8 +56,12 @@ class Battle
     # 
     loop do
       if @player.attack_first?
+        puts "player attaching first"
+        puts @player.inspect
         break if attack(@player, agent, @boost_amount)
       else
+        puts "agent attacking first"
+        puts agent.inspect
         break if attack(agent, @player)
       end
     end
@@ -94,11 +98,15 @@ class Battle
     damage_amount = opponent1.fight(opponent2, modifiers)
     if opponent1.is_a?(Player)
       echo("\nYou hit the agent for #{damage_amount} points.\n")
+      puts "Your HP: #{opponent1.hp}"
+      puts "Agent HP: #{opponent2.hp}"
     else
       echo("\nThe agent hits you for #{damage_amount} points.\n")
+      puts "Agent HP: #{opponent1.hp}"
+      puts "Your HP: #{opponent2.hp}"
     end
     if opponent2.alive?
-      attack(opponent2, opponent1)
+      attack(opponent2, opponent1, modifiers)
     else
       return true
     end

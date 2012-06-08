@@ -13,6 +13,7 @@ class Player < Fighter
     @evasion = ((rand(100) / 2) + Math::PI).ceil
     @endurance = ((rand(100) / 2) + Math::PI).ceil
     @bank_account = Bank.new
+    @weapon = Weapon.new
     @end_of_turn = false
     @free = true
   end
@@ -105,7 +106,8 @@ class Player < Fighter
   end
   
   def fight(agent, with_boost = nil)
-    @free = attacking(with_boost) > agent.defending
+    hit_opponent = attacking(with_boost) > agent.defending
+    hit_opponent ? agent.hp -= weapon.damage : 0
   end
   
   def run_from(agent, with_boost = nil)

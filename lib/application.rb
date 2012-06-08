@@ -2,11 +2,14 @@ require 'win32console' if RUBY_PLATFORM =~ /mingw/
 require "artii"
 require 'highline/import'
 require 'utilities'
-require 'city'
-require 'player'
 require 'drug'
+require 'city'
+require 'weapon'
+require 'fighter'
+require 'player'
 require 'bank'
 require 'agent'
+require 'battle'
 require 'game'
 
 module Application

@@ -33,12 +33,24 @@ class Fighter
     rand(10) % 2 == 0
   end
   
-  def attacks(opponent)
-    0
+  def attacks(opponent, boost = nil)
+    if attacking > opponent.defending
+      opponent.hp -= weapon.damage
+    else
+      0
+    end
+  end
+  
+  def fight(opponent, with_boost = nil)
+    attacks(opponent, with_boost)
   end
   
   def dead?
     @hp <= 0
+  end
+  
+  def alive?
+    not dead?
   end
   
 end
