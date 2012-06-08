@@ -1,11 +1,11 @@
-= Dopewars v.0.2.2
+= Dopewars v.1.0.0
 
 This is a Ruby port of the original dopewars/drugwars game.
 
 == Overview
 
 You are a drug dealer. Your goal is to buy and sell drugs and make money without being caught.
-You have 30 days to fly around the world making your purchases and selling your product. 
+You have 30 days to fly around the world making your purchases and selling your product.
 
 This is a single player game. As the player, your goal is to beat your previous score.
 Your score is the total amount you're worth at the end of the game.
@@ -40,15 +40,16 @@ You can type ? for help during the game.
 == Current Issues
   
 * All drugs are always available
-* Battles with DEA agents are skewed and you're most likely to lose :(
 * No way to exit game mid way
 * Fill in help menu
 * Allow help to be accessed any time
+* During battle, HP is not displayed properly
+* Currently no way to purchase new weapons
+* The bag isn't in place to limit the number of drugs you can carry
+* The end of game calculation isn't complete
 
 == Upgrades
 
-* Allow player to use drugs as "buffs" when fighting
-* Allow player to train to gain speed, accuracy, evasion
 * Limit the amount of drugs that can be carried per bag size
 * Allow purchasing of weapons, and bags (maybe other items)
 * Fluctuating interest rates depending on which city you start in
