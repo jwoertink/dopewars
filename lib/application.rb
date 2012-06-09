@@ -7,6 +7,7 @@ require 'city'
 require 'weapon'
 require 'fighter'
 require 'player'
+require 'bag'
 require 'bank'
 require 'agent'
 require 'battle'
@@ -17,7 +18,7 @@ module Application
   
   # This just kicks off the application.
   def self.run!
-    echo(echo_ascii("Dopewars"), :purple, 0)
+    echo(ascii("Dopewars"), :purple, 0)
     echo("v#{Utilities::VERSION}", :purple, 0)
     key = ask("[S]tart a new game or [Q]uit?")
 

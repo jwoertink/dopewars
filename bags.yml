@@ -1,0 +1,9 @@
+- size: "Small"
+  quantity: 20
+  cost: 0
+- size: "Medium"
+  quantity: 50
+  cost: 1000
+- size: "Large"
+  quantity: 100
+  cost: 5000

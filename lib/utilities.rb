@@ -26,7 +26,7 @@ MSG
     :blank      => "\e[8m"
   }
 
-  def echo_ascii(message)
+  def ascii(message)
     @ascii ||= Artii::Base.new
     @ascii.asciify(message)
   end
@@ -36,8 +36,6 @@ MSG
   end
   
   def echo(message, colour = :white, wait_time = 1)
-    #const = ::HighLine.const_get(colour.to_s.upcase)
-    #say(%{<%= color("#{message}", "#{const}") %>})
     puts color(message, colour)
     sleep wait_time
   end

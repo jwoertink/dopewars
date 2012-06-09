@@ -62,6 +62,8 @@ class Game
         check_stats_menu
       when '6'
         gym_menu
+      when '7'
+        store_menu
       when '?'
         help_menu
       else
@@ -136,7 +138,7 @@ class Game
   end
   
   def airport_menu
-    echo(echo_ascii(game_text(:airport_title)), :purple, 0)
+    echo(ascii(game_text(:airport_title)), :purple, 0)
     city_options = ""
     available_options = []
     City::LOCATIONS.each_with_index do |city, select_number|
@@ -167,7 +169,7 @@ class Game
   end
   
   def bank_menu
-    echo(echo_ascii(game_text(:bank_title)), :purple, 0)
+    echo(ascii(game_text(:bank_title)), :purple, 0)
     echo(game_text(:bank_menu), :blue, 0)
     menu_option = ask("Select your option:")
     loop do
@@ -218,7 +220,7 @@ class Game
   end
   
   def check_stats_menu
-    echo(echo_ascii(game_text(:stats_title)), :purple, 0)
+    echo(ascii(game_text(:stats_title)), :purple, 0)
     str = " Current Location: #{@current_location.name}\n"
     str << " Days remaining: #{days_remaining}\n"
     echo(@player.stats << str, :cyan)
@@ -228,7 +230,7 @@ class Game
     if @player.visited_gym?(@current_location)
       echo("You've already worked out today, come back tomorrow.", :red)
     else
-      echo(echo_ascii(game_text(:gym_title)), :purple, 0)
+      echo(ascii(game_text(:gym_title)), :purple, 0)
       echo(game_text(:gym_menu), :blue)
       menu_option = ask("Select your option:")
       loop do
@@ -247,7 +249,52 @@ class Game
           echo("Goodbye.", :green)
           break
         else
+          help_menu
         end
+      end
+    end
+  end
+  
+  def store_menu
+    echo(ascii(game_text(:store_title)), :purple, 0)
+    echo(game_text(:store_main_menu), :blue)
+    menu_option = ask("Select your option:")
+    loop do
+      case menu_option
+      when '1'
+        i = 0
+        items = []
+        available_options = []
+        Weapon.all.each do |weapon|
+          items << weapon["type"]
+          echo("#{i + 1}. #{weapon["type"]} @ $#{weapon["cost"]}", :cyan, 0)
+          available_options << i
+          i += 1
+        end
+        Bag.all.each do |bag|
+          items << bag["size"]
+          echo("#{i + 1}. #{bag["size"]} bag @ $#{bag["cost"]}", :cyan, 0)
+          available_options << i
+          i += 1
+        end
+        loop do
+          menu_option = ask("Select your option: ", Integer) { |q| q.in = available_options.map(&:to_i) }
+          item = items[menu_option - 1]
+          if Weapon.find(item)
+            @player.weapon = Weapon.new(:type => item)
+            @player.wallet -= @player.weapon.cost
+          else
+            @player.bag = Bag.new(:size => item)
+            @player.wallet -= @player.bag.cost
+          end
+          break
+        end
+        break
+      when '2' #leave
+        echo("Goodbye.", :green)
+        break
+      else
+        help_menu
       end
     end
   end
@@ -260,7 +307,7 @@ class Game
   end
   
   def help_menu
-    echo(echo_ascii(game_text(:help_menu_title)), :purple, 0)
+    echo(ascii(game_text(:help_menu_title)), :purple, 0)
     echo(game_text(:help_menu), :blue)
   end
   

@@ -15,7 +15,7 @@ class Battle
   end
   
   def start
-    echo(echo_ascii(game_text(:battle_title)), :purple, 0)
+    echo(ascii(game_text(:battle_title)), :purple, 0)
     loop do
       choice = ask("Will you [F]ight or [R]un?")
       case choice.downcase

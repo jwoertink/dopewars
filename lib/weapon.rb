@@ -1,16 +1,32 @@
+require 'yaml'
+
 class Weapon
-  TYPES = {"Fist" => 1, "Brass Knuckle" => 2, "Knife" => 3, "Gun" => 4}
   
-  attr_accessor :type, :damage
+  attr_accessor :type, :damage, :cost, :level
   
   # Fist deals 1 damage
   # Brass Knuckle deals 2 damage
   # Knife deals 3 damage
   # Gun deals 4 damage
   
+  def self.find(key)
+    all.collect { |w| w if w["type"].eql?(key) }.compact.first
+  end
+  
+  # Returns an array of hashes
+  def self.all
+    YAML::load(File.open(File.expand_path(File.join(File.dirname(__FILE__), '..', "weapons.yml"))))
+  end
+  
   def initialize(options = {})
-    @type = options[:type] || "Fist"
-    @damage = TYPES[@type]
+    if options[:type]
+      weapon = Weapon.find(options[:type])
+    else
+      weapon = Weapon.all.first
+    end
+    weapon.each do |k, v|
+      instance_variable_set("@#{k}", v)
+    end
   end
   
 end

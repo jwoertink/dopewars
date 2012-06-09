@@ -44,8 +44,8 @@ You can type ? for help during the game.
 * Fill in help menu
 * Allow help to be accessed any time
 * During battle, HP is not displayed properly
-* Currently no way to purchase new weapons
-* The bag isn't in place to limit the number of drugs you can carry
+* The bag isn't fully in place
+* Item purchases aren't restricted
 * The end of game calculation isn't complete
 
 == Upgrades

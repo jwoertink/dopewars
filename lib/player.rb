@@ -1,6 +1,6 @@
 class Player < Fighter
   
-  attr_accessor :name, :drugs, :wallet, :days_remaining, :bank_account, :end_of_turn, :transactions
+  attr_accessor :name, :drugs, :wallet, :bag, :days_remaining, :bank_account, :end_of_turn, :transactions
   
   def initialize(defaults = {})
     @name = defaults[:name].capitalize
@@ -14,6 +14,7 @@ class Player < Fighter
     @endurance = ((rand(100) / 2) + Math::PI).ceil
     @bank_account = Bank.new
     @weapon = Weapon.new
+    @bag = Bag.new
     @end_of_turn = false
     @free = true
   end

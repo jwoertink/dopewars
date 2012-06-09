@@ -1,0 +1,16 @@
+- type: "Fist"
+  damage: 1
+  cost: 0
+  level: 1
+- type: "Brass Knuckle"
+  damage: 2
+  cost: 1000
+  level: 3
+- type: "Knife"
+  damage: 3
+  cost: 5000
+  level: 6
+- type: "Gun"
+  damage: 4
+  cost: 10000
+  level: 12
