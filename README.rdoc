@@ -16,7 +16,7 @@ Simple economy. Drug value is, to some degree, determined randomly by the day.
 == How to play
 For linux/mac
 
-  $ ruby dopewars
+  $ ruby bin/dopewars
   
 For windows
   
@@ -38,7 +38,6 @@ You can type ? for help during the game.
 * bundler gem (gem install bundler)
   
 == Current Issues
-  
 * All drugs are always available
 * No way to exit game mid way
 * Fill in help menu
@@ -47,10 +46,9 @@ You can type ? for help during the game.
 * The bag isn't fully in place
 * Item purchases aren't restricted
 * The end of game calculation isn't complete
+* Limit the amount of drugs that can be carried per bag size
 
 == Upgrades
-
-* Limit the amount of drugs that can be carried per bag size
-* Allow purchasing of weapons, and bags (maybe other items)
 * Fluctuating interest rates depending on which city you start in
 * Fight more than 1 agent at a time
+* Create GUI using ncurses

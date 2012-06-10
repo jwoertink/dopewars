@@ -34,11 +34,13 @@ class Fighter
   end
   
   def attacks(opponent, boost = nil)
-    if attacking > opponent.defending
+    if rand(attacking) >= rand(opponent.defending)
       opponent.hp -= weapon.damage
+      hit_amount = weapon.damage
     else
-      0
+      hit_amount = 0
     end
+    hit_amount
   end
   
   def fight(opponent, with_boost = nil)

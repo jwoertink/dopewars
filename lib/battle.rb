@@ -44,25 +44,13 @@ class Battle
       echo("You have no drugs to take, good luck!", :cyan, 0)
     end
     
-    # Roll to see who attacks first
-    # if agent attacks first
-    #   if player defends, agent misses
-    #   if player doesn't defend, agent attacks
-    #   player is hit for damage amount of agent's weapon
-    # if player attacks first
-    #   agent tries to defend
-    #   if agent doesn't defend, player attacks
-    #   agent is hit for damage amount of player's weapon
-    # 
     loop do
       if @player.attack_first?
-        puts "player attaching first"
-        puts @player.inspect
+        puts "#{@player.name} attacks first"
         break if attack(@player, agent, @boost_amount)
       else
-        puts "agent attacking first"
-        puts agent.inspect
-        break if attack(agent, @player)
+        puts "The agent attacks first"
+        break if attack(agent, @player, @boost_amount)
       end
     end
     
@@ -97,11 +85,11 @@ class Battle
   def attack(opponent1, opponent2, modifiers = nil)
     damage_amount = opponent1.fight(opponent2, modifiers)
     if opponent1.is_a?(Player)
-      echo("\nYou hit the agent for #{damage_amount} points.\n")
+      echo("\nYou hit the agent for #{damage_amount} points.\n", :yellow)
       puts "Your HP: #{opponent1.hp}"
       puts "Agent HP: #{opponent2.hp}"
     else
-      echo("\nThe agent hits you for #{damage_amount} points.\n")
+      echo("\nThe agent hits you for #{damage_amount} points.\n", :yellow)
       puts "Agent HP: #{opponent1.hp}"
       puts "Your HP: #{opponent2.hp}"
     end

@@ -335,7 +335,11 @@ class Game
   def finish!
     echo("Game Over", :red, 0)
     echo("Final Stats:", :blue)
-    echo(@player.stats, :yellow)
+    if days_remaining.zero?
+      echo(@player.final_stats, :green)
+    else
+      echo(@player.stats, :yellow)
+    end
     exit
   end
   

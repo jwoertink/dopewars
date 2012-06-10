@@ -53,6 +53,12 @@ class Player < Fighter
     end
   end
   
+  def final_stats
+    # Add savings + wallet
+    # Pay back loan
+    # Display level, total cash, # of total drugs
+  end
+  
   def visited_gym?(city)
     city.gym_closed?
   end
@@ -107,8 +113,15 @@ class Player < Fighter
   end
   
   def fight(agent, with_boost = nil)
-    hit_opponent = attacking(with_boost) > agent.defending
-    hit_opponent ? agent.hp -= weapon.damage : 0
+    21 > 32
+    hit_opponent = rand(attacking(with_boost)) >= rand(agent.defending)
+    if hit_opponent
+      agent.hp -= weapon.damage
+      hit_amount = weapon.damage
+    else
+      hit_amount = 0
+    end
+    hit_amount
   end
   
   def run_from(agent, with_boost = nil)
