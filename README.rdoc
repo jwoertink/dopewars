@@ -1,4 +1,4 @@
-= Dopewars v.1.0.0
+= Dopewars v.1.0
 
 This is a Ruby port of the original dopewars/drugwars game.
 
@@ -13,7 +13,11 @@ You lose only if you get caught, or if you owe any money at the end of the game.
 
 Simple economy. Drug value is, to some degree, determined randomly by the day.
 
+You can train at the gym to gain levels. Gaining levels will increase your speed, strength, and hit points.
+You can also purchase strong weapons to kill agents faster. Killing an agent has a bonus reward.
+
 == How to play
+Open your terminal/command line, and `cd` into the directory where you downloaded the game.
 For linux/mac
 
   $ ruby bin/dopewars
@@ -23,7 +27,7 @@ For windows
   $ ruby bin\dopewars
   
 You will be walked through during gameplay. Type "S" to start, or "Q" to quit.
-Options are normally numbers 1 through 5 or so.
+Options are normally numbers.
 You can type ? for help during the game.
 
 == Installing
@@ -42,13 +46,23 @@ You can type ? for help during the game.
 * No way to exit game mid way
 * Fill in help menu
 * Allow help to be accessed any time
-* During battle, HP is not displayed properly
 * The bag isn't fully in place
 * Item purchases aren't restricted
 * The end of game calculation isn't complete
 * Limit the amount of drugs that can be carried per bag size
+* Agents don't gain levels.
 
 == Upgrades
 * Fluctuating interest rates depending on which city you start in
 * Fight more than 1 agent at a time
 * Create GUI using ncurses
+* Allow each drug to have a different effect during battle
+* Push scores to twitter?
+* Make a single package installer for win/mac
+
+== Contributing
+* Fork the repository
+* Clone your newly forked repo
+* Make changes
+* Push changes to your repo
+* Do pull request
