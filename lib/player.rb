@@ -1,7 +1,7 @@
 class Player < Fighter
-  
+
   attr_accessor :name, :drugs, :wallet, :bag, :days_remaining, :bank_account, :end_of_turn, :transactions
-  
+
   def initialize(defaults = {})
     @name = defaults[:name].capitalize
     @drugs = defaults[:drugs]
@@ -18,24 +18,24 @@ class Player < Fighter
     @end_of_turn = false
     @free = true
   end
-  
+
   def running(boost)
     @speed + @endurance + boost.to_i
   end
-  
+
   def defending
     @evasion
   end
-  
+
   def attacking(boost)
     @accuracy + boost.to_i
   end
-  
+
   def workout!
     effort = rand(100)
     level_up! if effort > 50
   end
-  
+
   def level_up!
     @level += 1
     @hp = max_hit_points
@@ -44,7 +44,7 @@ class Player < Fighter
     @evasion += @level
     @endurance += @level
   end
-  
+
   def stats(full = true)
     if full
       full_stats
@@ -52,31 +52,31 @@ class Player < Fighter
       mini_stats
     end
   end
-  
+
   def final_stats
     # Add savings + wallet
     # Pay back loan
     # Display level, total cash, # of total drugs
   end
-  
+
   def visited_gym?(city)
     city.gym_closed?
   end
-  
+
   # you can buy the drug if you have enough money for the qty of that drug
   def can_buy_drug?(price, qty)
     wallet > (price * qty) 
   end
-  
+
   # you can sell the drug if there is a market for it on the streets
   def can_sell_drug?(drug)
     drug.can_be_sold?
   end
-  
+
   def has_drugs?
     !@drugs.empty?
   end
-  
+
   # See if the player has enough money to buy drugs from a particular city
   def can_afford_drugs?(drugs_from_city)
     num_of_purchasable_drugs = 0
@@ -85,7 +85,7 @@ class Player < Fighter
     end
     num_of_purchasable_drugs > 0
   end
-  
+
   def add_to_drugs(drugs_to_add)
     drugs_to_add.each_pair do |drug, amount|
       drug = drug.to_sym
@@ -96,22 +96,22 @@ class Player < Fighter
       end
     end
   end
-  
+
   def remove_from_drugs(drugs_to_remove)
     drugs_to_remove.each_pair do |drug, amount|
       @drugs[drug] -= drugs_to_remove[drug]
       @drugs.delete(drug) if @drugs[drug].zero?
-    end    
+    end
   end
-  
+
   def captured?
     not free? or dead?
   end
-  
+
   def free?
     @free
   end
-  
+
   def fight(agent, with_boost = nil)
     21 > 32
     hit_opponent = rand(attacking(with_boost)) >= rand(agent.defending)
@@ -123,7 +123,7 @@ class Player < Fighter
     end
     hit_amount
   end
-  
+
   def run_from(agent, with_boost = nil)
     if running(with_boost) > agent.running
       # You run faster than the agent
@@ -133,26 +133,26 @@ class Player < Fighter
     end
     @free = result
   end
-  
+
   def start_turn!
     @end_of_turn = false
   end
-  
+
   def end_turn!
     bank_account.add_daily_interest
     @end_of_turn = true
   end
-  
+
   def end_of_turn?
     @end_of_turn
   end
-  
+
   def encounter_agent?
     Agent.near_by?
   end
-  
+
   private
-  
+
     def full_stats
       str = ""
       str << "Stats #{name}:\n"
@@ -175,5 +175,5 @@ class Player < Fighter
       str << " Endurance: #{endurance}\n"
       str
     end
-  
+
 end

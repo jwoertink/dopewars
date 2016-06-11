@@ -1,9 +1,9 @@
 require 'yaml'
 
 module Utilities
-  
+
   VERSION = File.read(File.join(File.dirname(__FILE__), '..', 'VERSION'))
-  
+
   GAME_TITLE = <<-MSG
 **********************************
   Dopewars v#{VERSION}
@@ -30,20 +30,20 @@ MSG
     @ascii ||= Artii::Base.new
     @ascii.asciify(message)
   end
-  
+
   def color(text, kolor = :white)
     "#{TEXT[kolor]}#{text}#{TEXT[:reset]}"
   end
-  
+
   def echo(message, colour = :white, wait_time = 1)
     puts color(message, colour)
     sleep wait_time
   end
-  
+
   def game_defaults
     {playable: true, days: 30, current_day: 0, current_location: City.new}
   end
-  
+
   def game_text(key, vars = {})
     @yml ||= YAML::load(File.open(File.expand_path(File.join(File.dirname(__FILE__), '..', "text.yml"))))["game"]
     unless vars.empty?
@@ -53,5 +53,5 @@ MSG
     end
     @yml[key.to_s]
   end
-  
+
 end

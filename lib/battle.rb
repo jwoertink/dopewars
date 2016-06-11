@@ -1,19 +1,19 @@
 # This class will simulate the battles between the player and agents
 class Battle
   include Utilities
-  
+
   attr_accessor :player, :agents
-  
+
   def initialize(player, agents = [])
     @player = player
     @agents = agents
     @agent = @agents.first # Implementing single 1 on 1 battle for now
   end
-  
+
   def agent
     @agent
   end
-  
+
   def start
     echo(ascii(game_text(:battle_title)), :purple, 0)
     loop do
@@ -30,7 +30,7 @@ class Battle
       end
     end
   end
-  
+
   def fight_mode
     if @player.has_drugs?
       if agree("Do you want to take a drug boost?")
@@ -43,7 +43,7 @@ class Battle
     else
       echo("You have no drugs to take, good luck!", :cyan, 0)
     end
-    
+
     loop do
       if @player.attack_first?
         puts "#{@player.name} attacks first"
@@ -53,7 +53,7 @@ class Battle
         break if attack(agent, @player, @boost_amount)
       end
     end
-    
+
     if agent.dead?
       @bonus_amount = 10000
       echo(game_text(:killed_agent, {:name => @player.name, :bonus_amount => @bonus_amount}), :green)
@@ -62,7 +62,7 @@ class Battle
       echo("You have been captured.", :red)
     end
   end
-  
+
   def run_away
     if @player.has_drugs?
       if agree("Do you want to take a drug boost?")
@@ -81,7 +81,7 @@ class Battle
       echo("You have been captured.", :red)
     end
   end
-  
+
   def attack(opponent1, opponent2, modifiers = nil)
     damage_amount = opponent1.fight(opponent2, modifiers)
     if opponent1.is_a?(Player)
@@ -99,5 +99,5 @@ class Battle
       return true
     end
   end
-  
+
 end

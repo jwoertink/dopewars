@@ -15,7 +15,7 @@ require 'game'
 
 module Application
   extend Utilities
-  
+
   # This just kicks off the application.
   def self.run!
     echo(ascii("Dopewars"), :purple, 0)

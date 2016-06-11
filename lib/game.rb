@@ -1,22 +1,22 @@
 class Game
   include Utilities
-  
+
   def initialize(defaults = {})
     defaults.each_pair { |key,value| instance_variable_set("@#{key}", value) }
   end
-  
+
   def playable?
     @playable
   end
-  
+
   def game_over?
     @days <= 0 or !playable?
   end
-  
+
   def days_remaining
     @days - @current_day
   end
-  
+
   def awareness_level_warning
     level = case @current_location.transactions
     when 3
