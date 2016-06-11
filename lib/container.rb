@@ -1,25 +1,25 @@
 require 'yaml'
 
-class Bag
+class Container
 
-  attr_accessor :size, :quantity, :cost, :item_count
+  attr_accessor :size, :quantity, :cost, :name, :item_count, :items
 
   # Returns an array of hashes
   def self.all
-    YAML::load(File.open(File.expand_path(File.join(File.dirname(__FILE__), '..', "bags.yml"))))
+    YAML::load(File.open(File.expand_path(File.join(File.dirname(__FILE__), '..', "containers.yml"))))
   end
 
   def self.find(key)
-    all.collect { |b| b if b["size"].eql?(key) }.compact.first
+    all.find { |c| c["size"].eql?(key) }
   end
 
   def initialize(options = {})
-    if options[:size]
-      bag = Bag.find(options[:size])
+    attributes = if options[:size]
+      Container.find(options[:size])
     else
-      bag = Bag.all.first
+      Container.all.first
     end
-    bag.each do |k, v|
+    attributes.each do |k, v|
       instance_variable_set("@#{k}", v)
     end
     @item_count = 0

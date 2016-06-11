@@ -1,6 +1,6 @@
 class Player < Fighter
 
-  attr_accessor :name, :drugs, :wallet, :bag, :days_remaining, :bank_account, :end_of_turn, :transactions
+  attr_accessor :name, :drugs, :wallet, :container, :days_remaining, :bank_account, :end_of_turn, :transactions
 
   def initialize(defaults = {})
     @name = defaults[:name].capitalize
@@ -14,7 +14,7 @@ class Player < Fighter
     @endurance = ((rand(100) / 2) + Math::PI).ceil
     @bank_account = Bank.new
     @weapon = Weapon.new
-    @bag = Bag.new
+    @container = Container.new
     @end_of_turn = false
     @free = true
   end
@@ -113,7 +113,6 @@ class Player < Fighter
   end
 
   def fight(agent, with_boost = nil)
-    21 > 32
     hit_opponent = rand(attacking(with_boost)) >= rand(agent.defending)
     if hit_opponent
       agent.hp -= weapon.damage
@@ -125,13 +124,7 @@ class Player < Fighter
   end
 
   def run_from(agent, with_boost = nil)
-    if running(with_boost) > agent.running
-      # You run faster than the agent
-      result = true
-    else
-      result = false
-    end
-    @free = result
+    @free = running(with_boost) > agent.running
   end
 
   def start_turn!

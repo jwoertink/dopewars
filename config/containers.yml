@@ -1,9 +1,12 @@
 - size: "Small"
   quantity: 20
   cost: 0
+  name: "Pockets"
 - size: "Medium"
   quantity: 50
   cost: 1000
+  name: "Briefcase"
 - size: "Large"
   quantity: 100
   cost: 5000
+  name: "Large Pack"
