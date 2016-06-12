@@ -74,7 +74,7 @@ class Player < Fighter
   end
 
   def has_drugs?
-    !@drugs.empty?
+    @drugs.any?
   end
 
   # See if the player has enough money to buy drugs from a particular city

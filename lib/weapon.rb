@@ -15,7 +15,7 @@ class Weapon
 
   # Returns an array of hashes
   def self.all
-    YAML::load(File.open(File.expand_path(File.join(File.dirname(__FILE__), '..', "weapons.yml"))))
+    YAML.load(File.open(File.join(GAME_ROOT, "config", "weapons.yml")))
   end
 
   def initialize(options = {})

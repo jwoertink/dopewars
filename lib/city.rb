@@ -5,7 +5,7 @@ class City
   LOCATIONS = ["Las Vegas", "New York", "Miami", "Amsterdam", "Frankfurt", "El-Jazier"]
 
   def initialize(options = {})
-    @name = options[:name] ||= LOCATIONS.sort_by { rand }.first
+    @name = options.fetch(:name, LOCATIONS.sample)
     gather_drugs
     @transactions = 0
     @gym_closed = false
@@ -20,7 +20,7 @@ class City
     @gym_closed
   end
 
-  # currently returns a random number
+  # TODO: If the particular drug has been flooded in this city's market, return a lower price when buying. Return higher price when the specific drug is in high demand. Or 0 for drugs not available to buy/sell in this market.
   def market_price_for_drug
     rand(500) + 10
   end

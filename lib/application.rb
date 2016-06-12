@@ -1,6 +1,7 @@
 require 'win32console' if RUBY_PLATFORM =~ /mingw/
 require "artii"
 require 'highline/import'
+require 'yaml'
 require 'utilities'
 require 'drug'
 require 'city'

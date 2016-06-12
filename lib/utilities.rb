@@ -1,8 +1,8 @@
 require 'yaml'
 
 module Utilities
-
-  VERSION = File.read(File.join(File.dirname(__FILE__), '..', 'VERSION'))
+  GAME_ROOT = File.join(File.dirname(__FILE__), '..')
+  VERSION = File.read(File.join(GAME_ROOT, 'VERSION'))
 
   GAME_TITLE = <<-MSG
 **********************************
@@ -11,19 +11,19 @@ module Utilities
 MSG
 
   TEXT = {
-    :reset      => "\e[0m",
-    :black      => "\e[30m",
-    :red        => "\e[31m",
-    :green      => "\e[32m",
-    :yellow     => "\e[33m",
-    :blue       => "\e[34m",
-    :purple     => "\e[35m",
-    :cyan       => "\e[36m",
-    :gray       => "\e[37m",
-    :underline  => "\e[4m",
-    :blink      => "\e[5m",
-    :invert     => "\e[7m",
-    :blank      => "\e[8m"
+    reset:     "\e[0m",
+    black:     "\e[30m",
+    red:       "\e[31m",
+    green:     "\e[32m",
+    yellow:    "\e[33m",
+    blue:      "\e[34m",
+    purple:    "\e[35m",
+    cyan:      "\e[36m",
+    gray:      "\e[37m",
+    underline: "\e[4m",
+    blink:     "\e[5m",
+    invert:    "\e[7m",
+    blank:     "\e[8m"
   }
 
   def ascii(message)
@@ -45,7 +45,7 @@ MSG
   end
 
   def game_text(key, vars = {})
-    @yml ||= YAML::load(File.open(File.expand_path(File.join(File.dirname(__FILE__), '..', "text.yml"))))["game"]
+    @yml ||= YAML.load(File.open(File.join(GAME_ROOT, "config", "text.yml")))["game"]
     unless vars.empty?
       vars.keys.each do |k|
         @yml[key.to_s].gsub!("%{#{k}}", "#{vars[k]}")

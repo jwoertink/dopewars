@@ -20,7 +20,7 @@ class Game
   def awareness_level_warning
     level = case @current_location.transactions
     when 3
-      echo(game_text(:awareness_notice, {:city => @current_location.name}), :yellow, 0)
+      echo(game_text(:awareness_notice, {city: @current_location.name}), :yellow, 0)
       0 # no chance of getting caught
     when 4
       echo(game_text(:high_awareness_notice), :yellow, 0)
@@ -37,14 +37,14 @@ class Game
     else
       0
     end
-    
+
     return level
   end
-  
+
   #Maybe this should be moved?
   def select_menu(menu_option)
     level = awareness_level_warning
-    
+
     if level > 70
       battle_agent_menu
     else
@@ -74,7 +74,7 @@ class Game
       end
     end
   end
-  
+
   def buyers_menu
     if @player.can_afford_drugs?(@current_location.drugs)
       echo(game_text(:buyers_menu), :blue, 0)
@@ -105,7 +105,7 @@ class Game
       echo("You're too broke to purchase. Go to the bank.", :red)
     end
   end
-  
+
   def sellers_menu
     if @player.has_drugs?
       echo(game_text(:sellers_menu), :blue, 0)
@@ -136,7 +136,7 @@ class Game
       echo("You must purchase drugs first", :red, 0)
     end
   end
-  
+
   def airport_menu
     echo(ascii(game_text(:airport_title)), :purple, 0)
     city_options = ""
@@ -167,7 +167,7 @@ class Game
       end
     end
   end
-  
+
   def bank_menu
     echo(ascii(game_text(:bank_title)), :purple, 0)
     echo(game_text(:bank_menu), :blue, 0)
@@ -218,14 +218,14 @@ class Game
       end
     end
   end
-  
+
   def check_stats_menu
     echo(ascii(game_text(:stats_title)), :purple, 0)
     str = " Current Location: #{@current_location.name}\n"
     str << " Days remaining: #{days_remaining}\n"
     echo(@player.stats << str, :cyan)
   end
-  
+
   def gym_menu
     if @player.visited_gym?(@current_location)
       echo("You've already worked out today, come back tomorrow.", :red)
@@ -254,7 +254,7 @@ class Game
       end
     end
   end
-  
+
   def store_menu
     echo(ascii(game_text(:store_title)), :purple, 0)
     echo(game_text(:store_main_menu), :blue)
@@ -298,22 +298,22 @@ class Game
       end
     end
   end
-  
+
   def battle_agent_menu
     agent = Agent.new
     echo("#{@player.name}, there is an agent chasing you!", :yellow)
     current_battle = Battle.new(@player, [agent])
     current_battle.start
   end
-  
+
   def help_menu
     echo(ascii(game_text(:help_menu_title)), :purple, 0)
     echo(game_text(:help_menu), :blue)
   end
-  
+
   #Main game loop
   def start!
-    echo(game_text(:welcome, {:name => @player.name, :amount => @player.wallet, :drug => @player.drugs.keys.first}), :green)
+    echo(game_text(:welcome, {name: @player.name, amount: @player.wallet, drug: @player.drugs.keys.first}), :green)
     echo(game_text(:dealer_introduction), :green)
     echo("You have #{days_remaining} Days Remaining", :yellow)
     while days_remaining > 0
@@ -326,12 +326,12 @@ class Game
       end
       break if game_over? or @player.captured?
       @current_day += 1
-      echo("You have #{days_remaining} Days Remaining", :yellow)  
+      echo("You have #{days_remaining} Days Remaining", :yellow)
     end
 
     finish!
   end
-  
+
   def finish!
     echo("Game Over", :red, 0)
     echo("Final Stats:", :blue)
@@ -342,5 +342,5 @@ class Game
     end
     exit
   end
-  
+
 end

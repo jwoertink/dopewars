@@ -8,6 +8,7 @@ class Drug
     @sellable = true
   end
 
+  # TODO: check to see if the market is flooded with this drug
   def can_be_sold?
     @sellable
   end

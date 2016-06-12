@@ -35,7 +35,7 @@ class Battle
     if @player.has_drugs?
       if agree("Do you want to take a drug boost?")
         # Need a way to select a specific drug
-        boost = @player.drugs.sort_by { rand }.first
+        boost = @player.drugs.sample
         @boost_amount = 2 # this would allow each drug to react differently
         @player.remove_from_drugs({boost[0] => 1})
         echo("You take some #{boost[0]} which boosts your accuracy by #{@boost_amount}", :cyan, 0)
@@ -56,7 +56,7 @@ class Battle
 
     if agent.dead?
       @bonus_amount = 10000
-      echo(game_text(:killed_agent, {:name => @player.name, :bonus_amount => @bonus_amount}), :green)
+      echo(game_text(:killed_agent, {name: @player.name, bonus_amount: @bonus_amount}), :green)
       @player.wallet += @bonus_amount
     else
       echo("You have been captured.", :red)
@@ -66,7 +66,7 @@ class Battle
   def run_away
     if @player.has_drugs?
       if agree("Do you want to take a drug boost?")
-        boost = @player.drugs.sort_by { rand }.first
+        boost = @player.drugs.sample
         @boost_amount = 2
         @player.remove_from_drugs({boost[0] => 1})
         echo("You take some #{boost[0]} which boosts your speed by #{@boost_amount}", :cyan, 0)

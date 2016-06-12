@@ -1,12 +1,10 @@
-require 'yaml'
-
 class Container
 
   attr_accessor :size, :quantity, :cost, :name, :item_count, :items
 
   # Returns an array of hashes
   def self.all
-    YAML::load(File.open(File.expand_path(File.join(File.dirname(__FILE__), '..', "containers.yml"))))
+    YAML.load(File.open(File.expand_path(File.join(File.dirname(__FILE__), '..', "containers.yml"))))
   end
 
   def self.find(key)
