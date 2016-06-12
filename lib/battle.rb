@@ -34,9 +34,9 @@ class Battle
   def fight_mode
     if @player.has_drugs?
       if agree("Do you want to take a drug boost?")
-        # Need a way to select a specific drug
-        boost = @player.drugs.sample
-        @boost_amount = 2 # this would allow each drug to react differently
+        # TODO: Need a way to select a specific drug
+        boost = @player.drugs.sort_by {rand}.first
+        @boost_amount = 2 # TODO: change this number based on the selected drug
         @player.remove_from_drugs({boost[0] => 1})
         echo("You take some #{boost[0]} which boosts your accuracy by #{@boost_amount}", :cyan, 0)
       end
