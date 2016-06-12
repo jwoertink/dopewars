@@ -268,24 +268,24 @@ class Game
         Weapon.all.each do |weapon|
           items << weapon["type"]
           echo("#{i + 1}. #{weapon["type"]} @ $#{weapon["cost"]}", :cyan, 0)
-          available_options << i
           i += 1
+          available_options << i
         end
-        Bag.all.each do |bag|
-          items << bag["size"]
-          echo("#{i + 1}. #{bag["size"]} bag @ $#{bag["cost"]}", :cyan, 0)
-          available_options << i
+        Container.all.each do |container|
+          items << container["size"]
+          echo("#{i + 1}. #{container["name"]} container @ $#{container["cost"]}", :cyan, 0)
           i += 1
+          available_options << i
         end
         loop do
           menu_option = ask("Select your option: ", Integer) { |q| q.in = available_options.map(&:to_i) }
           item = items[menu_option - 1]
           if Weapon.find(item)
-            @player.weapon = Weapon.new(:type => item)
+            @player.weapon = Weapon.new(type: item)
             @player.wallet -= @player.weapon.cost
           else
-            @player.bag = Bag.new(:size => item)
-            @player.wallet -= @player.bag.cost
+            @player.container = Container.new(size: item)
+            @player.wallet -= @player.container.cost
           end
           break
         end

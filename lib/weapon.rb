@@ -1,5 +1,3 @@
-require 'yaml'
-
 class Weapon
 
   attr_accessor :type, :damage, :cost, :level
@@ -10,12 +8,12 @@ class Weapon
   # Gun deals 4 damage
 
   def self.find(key)
-    all.collect { |w| w if w["type"].eql?(key) }.compact.first
+    all.find { |w| w["type"].eql?(key) }
   end
 
   # Returns an array of hashes
   def self.all
-    YAML.load(File.open(File.join(GAME_ROOT, "config", "weapons.yml")))
+    YAML.load(File.open(File.join(Utilities::GAME_ROOT, "config", "weapons.yml")))
   end
 
   def initialize(options = {})

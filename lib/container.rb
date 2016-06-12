@@ -4,7 +4,7 @@ class Container
 
   # Returns an array of hashes
   def self.all
-    YAML.load(File.open(File.expand_path(File.join(File.dirname(__FILE__), '..', "containers.yml"))))
+    YAML.load(File.open(File.join(Utilities::GAME_ROOT, "config", "containers.yml")))
   end
 
   def self.find(key)
