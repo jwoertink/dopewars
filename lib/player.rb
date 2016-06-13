@@ -1,6 +1,6 @@
 class Player < Fighter
 
-  attr_accessor :name, :drugs, :wallet, :container, :days_remaining, :bank_account, :end_of_turn, :transactions
+  attr_accessor :name, :drugs, :wallet, :container, :weapon, :days_remaining, :bank_account, :end_of_turn, :transactions
 
   def initialize(defaults = {})
     @name = defaults[:name].capitalize
@@ -151,6 +151,8 @@ class Player < Fighter
       str << "Stats #{name}:\n"
       str << " Drugs:\n"
       drugs.each { |k,v| str << " - #{k} x #{v}\n" }
+      str << " Container: #{container.name}\n"
+      str << " Weapon: #{weapon.name}\n"
       str << " Wallet: #{money_format(wallet)}\n"
       str << " Total savings: #{money_format(bank_account.savings_account)}\n"
       str << " Total loans: #{money_format(bank_account.loan_amount)}\n"
