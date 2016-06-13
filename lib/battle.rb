@@ -56,7 +56,7 @@ class Battle
 
     if agent.dead?
       @bonus_amount = 10000
-      echo(game_text(:killed_agent, {name: @player.name, bonus_amount: @bonus_amount}), :green)
+      echo(game_text(:killed_agent, {name: @player.name, bonus_amount: money_format(@bonus_amount)}), :green)
       @player.wallet += @bonus_amount
     else
       echo("You have been captured.", :red)

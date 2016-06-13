@@ -1,6 +1,6 @@
 game:
   greeting: Greetings young dealer. What shall I call you?
-  welcome: "Nice to meet you, %{name}. Here is $%{amount}.00 and some %{drug} to get you started."
+  welcome: "Nice to meet you, %{name}. Here is %{amount}.00 and some %{drug} to get you started."
   dealer_introduction: 
     "Now that you have that, there is one more thing you will need.\nHere is a plane ticket, and boarding pass good for 30 days.\nThis will allow you to travel to one of 6 specific cities\nYou will also need this bag to carry stuff in."
   main_menu: 
@@ -61,7 +61,7 @@ game:
   battle_title:
     "X BATTLE X"
   killed_agent:
-    "Congrats, %{name}! You have killed a DEA agent. You have earned a bonus of $%{bonus_amount}. Be on the lookout, you're wanted internationally now.\n\n"
+    "Congrats, %{name}! You have killed a DEA agent. You have earned a bonus of %{bonus_amount}. Be on the lookout, you're wanted internationally now.\n\n"
   awareness_notice:
     "People are starting to notice you. If you stay in %{city} for too long, agents may catch on.\n\n"
   high_awareness_notice:

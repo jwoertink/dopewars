@@ -83,7 +83,7 @@ class Game
       @current_location.drugs.each_with_index do |drug, select_number|
         drugs << drug
         max_amount = @player.wallet / drug.price
-        echo("#{select_number + 1}. #{drug.name} @ $#{drug.price} {#{max_amount}}", :cyan, 0)
+        echo("#{select_number + 1}. #{drug.name} @ #{money_format(drug.price)} {#{max_amount}}", :cyan, 0)
         available_options << (select_number + 1)
       end
       loop do
@@ -94,7 +94,7 @@ class Game
         if @player.can_buy_drug?(drug.price, amount.to_i)
           @player.add_to_drugs({drug.name => amount.to_i})
           @player.wallet -= decrease
-          echo("You have $#{@player.wallet} left.", :cyan)
+          echo("You have #{money_format(@player.wallet)} left.", :cyan)
           @current_location.transactions += 1
           break
         else
@@ -113,7 +113,7 @@ class Game
       drugs = []
       @player.drugs.each_pair do |drug, amount|
         dime_bag = Drug.new({name: drug, price: @current_location.market_price_for_drug, quantity: amount})
-        echo("#{i + 1}. #{dime_bag.name} x #{dime_bag.quantity} @ $#{dime_bag.price}ea", :cyan, 0)
+        echo("#{i + 1}. #{dime_bag.name} x #{dime_bag.quantity} @ #{money_format(dime_bag.price)}ea", :cyan, 0)
         drugs << dime_bag
         i += 1
       end
@@ -125,7 +125,7 @@ class Game
           @player.remove_from_drugs({drug.name => amount.to_i})
           increase = drugs[menu_option.to_i - 1].price * amount.to_i
           @player.wallet += increase
-          echo("You made $#{increase}", :cyan)
+          echo("You made #{money_format(increase)}", :cyan)
           @current_location.transactions += 1
           break
         else
@@ -178,10 +178,10 @@ class Game
         amount = ask("How much do you need?")
         @player.wallet += amount.to_i
         @player.bank_account.increase_loan(amount.to_i)
-        echo("You now have $#{@player.wallet}", :cyan)
+        echo("You now have #{money_format(@player.wallet)}", :cyan)
         break
       when "2" # Pay onto a loan
-        puts "Your current loan amount is #{@player.bank_account.loan_amount}"
+        puts "Your current loan amount is #{money_format(@player.bank_account.loan_amount)}"
         amount = ask("How much would you like to pay?")
         if amount.to_i > @player.wallet
           echo("Sorry, you don't have that much money.", :red)
@@ -191,7 +191,7 @@ class Game
           break
         end
       when "3" # Put money into savings
-        puts "You have $#{@player.wallet} on you."
+        puts "You have #{money_format(@player.wallet)} on you."
         amount = ask("How much do you want to deposit?")
         if amount.to_i > @player.wallet
           echo("Sorry, you don't have that much money.", :red)
@@ -201,7 +201,7 @@ class Game
           break
         end
       when "4" # Take money from savings
-        puts "You have $#{@player.bank_account.savings_account} in savings."
+        puts "You have #{money_format(@player.bank_account.savings_account)} in savings."
         amount = ask("How much do you want to take out?")
         if amount.to_i > @player.bank_account.savings_account
           echo("Sorry, you don't have that much money.", :red)
@@ -239,7 +239,7 @@ class Game
           current_level = @player.level
           @player.workout!
           if @player.level > current_level
-            echo(game_text(:player_gained_level, {:level => @player.level, :new_stats => @player.stats(false)}), :green, 0)
+            echo(game_text(:player_gained_level, {level: @player.level, new_stats: @player.stats(false)}), :green, 0)
           else
             echo("You had a good workout, but still need improvement", :cyan)
           end
@@ -267,13 +267,13 @@ class Game
         available_options = []
         Weapon.all.each do |weapon|
           items << weapon["type"]
-          echo("#{i + 1}. #{weapon["type"]} @ $#{weapon["cost"]}", :cyan, 0)
+          echo("#{i + 1}. #{weapon["type"]} @ #{money_format(weapon["cost"])}", :cyan, 0)
           i += 1
           available_options << i
         end
         Container.all.each do |container|
           items << container["size"]
-          echo("#{i + 1}. #{container["name"]} container @ $#{container["cost"]}", :cyan, 0)
+          echo("#{i + 1}. #{container["name"]} container @ #{money_format(container["cost"])}", :cyan, 0)
           i += 1
           available_options << i
         end
@@ -313,7 +313,7 @@ class Game
 
   #Main game loop
   def start!
-    echo(game_text(:welcome, {name: @player.name, amount: @player.wallet, drug: @player.drugs.keys.first}), :green)
+    echo(game_text(:welcome, {name: @player.name, amount: money_format(@player.wallet), drug: @player.drugs.keys.first}), :green)
     echo(game_text(:dealer_introduction), :green)
     echo("You have #{days_remaining} Days Remaining", :yellow)
     while days_remaining > 0

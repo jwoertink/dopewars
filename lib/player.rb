@@ -151,9 +151,9 @@ class Player < Fighter
       str << "Stats #{name}:\n"
       str << " Drugs:\n"
       drugs.each { |k,v| str << " - #{k} x #{v}\n" }
-      str << " Wallet: $#{wallet}\n"
-      str << " Total savings: $#{bank_account.savings_account}\n"
-      str << " Total loans: $#{bank_account.loan_amount}\n"
+      str << " Wallet: #{money_format(wallet)}\n"
+      str << " Total savings: #{money_format(bank_account.savings_account)}\n"
+      str << " Total loans: #{money_format(bank_account.loan_amount)}\n"
       str << mini_stats
       str
     end

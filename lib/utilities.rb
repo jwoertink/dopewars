@@ -54,4 +54,13 @@ MSG
     @yml[key.to_s]
   end
 
+  def money_format(amount)
+    dollars, cents = amount.round(2).to_s.split('.')
+    str = "$"
+    str << dollars.reverse.scan(/.{1,3}/).reverse.map(&:reverse).join(',')
+    str << "."
+    str << cents
+    str
+  end
+
 end

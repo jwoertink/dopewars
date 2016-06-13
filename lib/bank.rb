@@ -1,11 +1,17 @@
 class Bank
 
-  attr_accessor :loan_amount, :savings_account
-
   def initialize
     @loan_amount = 0
     @savings_account = 0
-    @interest = 0.25
+    @interest = rand(0.03...0.11).round(3) # Random between 3% and 11%
+  end
+
+  def loan_amount
+    @loan_amount.round(2)
+  end
+
+  def savings_account
+    @savings_account.round(2)
   end
 
   def increase_loan(amount)
