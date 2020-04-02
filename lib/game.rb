@@ -89,6 +89,7 @@ class Game
         available_options << (select_number + 1)
       end
       loop do
+        echo("You have $#{@player.wallet} on you.") 
         menu_option = ask("Select your option: ", Integer) { |q| q.in = available_options.map(&:to_i) }
         drug = drugs[menu_option - 1]
         amount = ask("How Many? ", Integer) { |q| q.above = 0 }
