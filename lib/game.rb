@@ -66,6 +66,8 @@ class Game
         store_menu
       when 'help'
         help_menu
+      when 'exit'
+        exit
       else
         echo(game_text(:bad_selection), :red, 0)
         echo(game_text(:main_menu), :blue, 0)
