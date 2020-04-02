@@ -64,8 +64,10 @@ class Game
         gym_menu
       when '7'
         store_menu
-      when '?'
+      when 'help'
         help_menu
+      when 'exit'
+        exit
       else
         echo(game_text(:bad_selection), :red, 0)
         echo(game_text(:main_menu), :blue, 0)
@@ -87,6 +89,7 @@ class Game
         available_options << (select_number + 1)
       end
       loop do
+        echo("You have $#{@player.wallet} on you.") 
         menu_option = ask("Select your option: ", Integer) { |q| q.in = available_options.map(&:to_i) }
         drug = drugs[menu_option - 1]
         amount = ask("How Many? ", Integer) { |q| q.above = 0 }
