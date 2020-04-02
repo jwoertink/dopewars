@@ -64,7 +64,7 @@ class Game
         gym_menu
       when '7'
         store_menu
-      when '?'
+      when 'help'
         help_menu
       else
         echo(game_text(:bad_selection), :red, 0)
