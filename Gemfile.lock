@@ -2,13 +2,15 @@ GEM
   remote: http://rubygems.org/
   specs:
     artii (2.0.1)
-    git (1.2.5)
+    git (1.11.0)
+      rchardet (~> 1.8)
     highline (1.6.2)
     jeweler (1.6.4)
       bundler (~> 1.0)
       git (>= 1.2.5)
       rake
     rake (13.0.1)
+    rchardet (1.8.0)
     ruby-termios (0.9.6)
 
 PLATFORMS
